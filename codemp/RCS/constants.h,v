@@ -1,0 +1,47 @@
+head	1.2;
+access;
+symbols;
+locks
+	z7005034:1.2; strict;
+comment	@ * @;
+
+
+1.2
+date	2007.11.10.19.04.25;	author z7005034;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2007.11.08.17.22.56;	author z7005034;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@*** empty log message ***
+@
+text
+@#ifndef CONST_H
+#define CONST_H
+const int NCountry=43;
+const int NDOTS=226;
+const double PI=3.1415926535897932;
+const double NDIV=150;
+#endif
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d6 1
+a6 1
+const double NDIV=75;
+@

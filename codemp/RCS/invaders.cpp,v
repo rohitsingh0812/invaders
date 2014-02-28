@@ -1,0 +1,5524 @@
+head	1.29;
+access;
+symbols;
+locks
+	z7005034:1.29; strict;
+comment	@// @;
+
+
+1.29
+date	2007.11.10.19.04.25;	author z7005034;	state Exp;
+branches;
+next	1.28;
+
+1.28
+date	2007.11.08.17.15.55;	author z7005034;	state Exp;
+branches;
+next	1.27;
+
+1.27
+date	2007.11.07.14.48.42;	author z7005034;	state Exp;
+branches;
+next	1.26;
+
+1.26
+date	2007.11.07.13.03.38;	author z7005034;	state Exp;
+branches;
+next	1.25;
+
+1.25
+date	2007.11.06.13.39.16;	author z7005034;	state Exp;
+branches;
+next	1.24;
+
+1.24
+date	2007.11.06.05.28.44;	author z7005034;	state Exp;
+branches;
+next	1.23;
+
+1.23
+date	2007.11.06.04.56.48;	author z7005034;	state Exp;
+branches;
+next	1.22;
+
+1.22
+date	2007.11.06.04.21.39;	author z7005034;	state Exp;
+branches;
+next	1.21;
+
+1.21
+date	2007.11.05.11.18.29;	author z7005034;	state Exp;
+branches;
+next	1.20;
+
+1.20
+date	2007.11.03.17.16.56;	author z7005034;	state Exp;
+branches;
+next	1.19;
+
+1.19
+date	2007.11.03.13.45.19;	author z7005034;	state Exp;
+branches;
+next	1.18;
+
+1.18
+date	2007.11.03.12.52.17;	author z7005034;	state Exp;
+branches;
+next	1.17;
+
+1.17
+date	2007.11.02.06.24.06;	author z7005034;	state Exp;
+branches;
+next	1.16;
+
+1.16
+date	2007.10.31.19.43.59;	author z7005034;	state Exp;
+branches;
+next	1.15;
+
+1.15
+date	2007.10.31.18.34.56;	author z7005034;	state Exp;
+branches;
+next	1.14;
+
+1.14
+date	2007.10.31.18.34.41;	author z7005034;	state Exp;
+branches;
+next	1.13;
+
+1.13
+date	2007.10.31.18.34.24;	author z7005034;	state Exp;
+branches;
+next	1.12;
+
+1.12
+date	2007.10.31.18.32.29;	author z7005034;	state Exp;
+branches;
+next	1.11;
+
+1.11
+date	2007.10.31.18.32.16;	author z7005034;	state Exp;
+branches;
+next	1.10;
+
+1.10
+date	2007.10.31.18.31.54;	author z7005034;	state Exp;
+branches;
+next	1.9;
+
+1.9
+date	2007.10.31.18.31.36;	author z7005034;	state Exp;
+branches;
+next	1.8;
+
+1.8
+date	2007.10.31.18.31.16;	author z7005034;	state Exp;
+branches;
+next	1.7;
+
+1.7
+date	2007.10.31.18.30.17;	author z7005034;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	2007.10.31.18.29.54;	author z7005034;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	2007.10.31.18.29.38;	author z7005034;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	2007.10.31.18.29.00;	author z7005034;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	2007.10.31.18.28.29;	author z7005034;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2007.10.31.18.28.04;	author z7005034;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2007.10.31.18.27.39;	author z7005034;	state Exp;
+branches;
+next	;
+
+
+desc
+@first.
+@
+
+
+1.29
+log
+@attack - 3
+@
+text
+@#include"inclusion.h"
+
+int ApiMain() 
+{	strphase="Attack Phase";
+	multiplayer=false;
+	srand(((unsigned int)time(0)));
+        ifstream fin("../data/neighbour.txt");
+	ifstream fname("../data/name.txt");
+	//inputs names and neighbour data from files for countries 
+	for(int i=0;i<NCountry;i++)
+	{
+		fin>>all[i].non;
+		int j;
+		for(j=0;j<all[i].non;j++)
+		fin>>all[i].neigh[j];
+		getline(fname,all[i].name,'\n');
+	}
+	system("convert ../images/title.jpg ../images/title.xpm");
+	system("convert ../images/loading.jpg ../images/loading.xpm");
+	//converting two JPGs to XPMs as they are required by loading window
+	usleep(600000);
+	invadersShowUp(); // show startup animation and loading window to proceed furthur for the game
+        return 0;
+}
+int ApiEnd()
+{
+	if(W1.GetStatus()==WindowOpen)
+		W1.Close();
+	if(W3.GetStatus()==WindowOpen)
+		W3.Close();
+	system("rm ../images/*.xpm");
+	//system("make clean");
+	return 0;
+}
+@
+
+
+1.28
+log
+@2nd
+@
+text
+@d2 1
+d9 1
+d20 1
+d22 1
+a22 1
+	invadersShowUp();
+d32 1
+@
+
+
+1.27
+log
+@twenty seventh
+@
+text
+@d4 1
+a4 1
+	multiplayer=true;
+a7 1
+	ifstream fcircles("../data/countrycircles.txt");
+a14 3
+		double x,y;
+		fcircles>>x>>y>>diameters[i];
+		centers[i]=Position(x,y);	
+@
+
+
+1.26
+log
+@twenty sixth -- multi player mode allowed
+@
+text
+@d4 1
+a4 1
+	multiplayer=false;
+@
+
+
+1.25
+log
+@twentyfifth version
+@
+text
+@a1 1589
+int uplayer()
+{
+	int h=0;
+	for(int i=0;i<NCountry;i++)
+	{
+		if(all[i].ownership==1)
+		h++;
+	}
+	return h;
+}
+string itoa(int i)
+{
+	stringstream oss;
+	oss<<i;
+	return(oss.str());
+}
+void flush(void)
+{
+	W1.RenderText(Position(0,19.8),"",Yellow,Red);
+	return;
+}
+void PrintPhase()
+{
+	W1.RenderText(Position(15,0.2),spaces(24),Yellow,Black);
+        W1.RenderText(Position(15,0.2),strphase,Yellow,Black);
+        flush();
+}
+void highlight(int i)
+{
+	 CircleShape C(W1,centers[i],Red,diameters[i]);
+	 C.Draw();
+	 W1.RenderText(centers[i],itoa(all[i].nos),Yellow,Red);
+	 flush();
+}
+color getColor(int i)
+{
+	if(all[i].ownership==0)
+	return Yellow;
+	return White;
+}
+int wsgQuit()
+{
+	if(W1.GetStatus()==WindowOpen)
+	{
+		focus=1;
+		Wsg.Close();
+		return 1;
+	}
+	focus=4;
+	startup();
+	Wsg.Close();
+	return 1;
+}
+int quitW3()
+{
+	if(focus==3)
+	{
+		f(Position(5.1,4.2));
+	}
+	if(focus==32)
+	{
+		f(Position(6.6,4.2));
+	}
+	return 0;
+}
+void ShowEndTurn()
+{
+       	ET.Load("../images/ETup.xpm");
+
+        ET.SetPosition(Position(13.2, 20.1));
+        
+        ET.Draw();
+       	flush();
+}
+void ShowSaveGame()
+{
+       	SG.Load("../images/SGup.xpm");
+
+        SG.SetPosition(Position(7.2, 20.1));
+        
+        SG.Draw();
+       	flush();
+}
+void ShowMainMenu()
+{
+       	MM.Load("../images/MMup.xpm");
+
+        MM.SetPosition(Position(19.2, 20.1));
+        
+        MM.Draw();
+       	flush();
+}
+
+string spaces(int n)
+{
+	string returnString="";
+	for(int i=0;i<n;i++)
+	{
+		returnString+=" ";
+	}
+	return returnString;
+}
+void PrintLeft(string str)
+{
+	W1.RenderText(Position(3,19.8),spaces(128),Yellow,Red);
+	W1.RenderText(Position(8.5,19.8),str,Yellow,Red);
+	W1.RenderText(Position(0,19.8),"",Yellow,Red);
+	return;
+}
+void PrintRein()
+{
+	int r1=reinforcement(1);
+	int r2=reinforcement(0);
+	W1.RenderText(Position(22,19.8),spaces(60),Yellow,Red);
+	W1.RenderText(Position(21.5,19.8),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Yellow,Red);
+	W1.RenderText(Position(0,19.8),"",Yellow,Red);
+	return;
+}
+void PrintRein(int r1,int r2)
+{
+	W1.RenderText(Position(22,19.8),spaces(90),Yellow,Red);
+	string s ="  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2);
+	W1.RenderText(Position(21.5,19.8),s,Yellow,Red);
+	flush();
+	return;
+}
+void showsave()
+{
+	Wsg.Open();
+
+	back.Load("../images/back.xpm");
+	back.SetPosition(Position(0,0));
+	back.Draw();
+	back.SetPosition(Position(12,0));
+	back.Draw();
+	back.SetPosition(Position(0,6));
+	back.Draw();
+	back.SetPosition(Position(12,6));
+	back.Draw();
+	back.SetPosition(Position(0,12));
+	back.Draw();
+	back.SetPosition(Position(12,12));
+	back.Draw();
+	game1.Load("../images/SG1.xpm");
+	game1.SetPosition(Position(1.5,3));
+	game1.Draw();
+	game2.Load("../images/SG2.xpm");
+	game2.SetPosition(Position(12.5,3));
+	game2.Draw();
+	game3.Load("../images/SG3.xpm");
+	game3.SetPosition(Position(7,6.5));
+	game3.Draw();
+	game4.Load("../images/SG4.xpm");
+	game4.SetPosition(Position(1.5,10));
+	game4.Draw();
+	game5.Load("../images/SG5.xpm");
+	game5.SetPosition(Position(12.5,10));
+	game5.Draw();
+	if (ls=="load")
+	{
+		lg.Load("../images/loadgame.xpm");
+		lg.SetPosition(Position(5.9,1.5));
+		lg.Draw();
+	};
+	if (ls=="save")
+	{
+		sg.Load("../images/savegame.xpm");
+		sg.SetPosition(Position(5.9,1.5));
+		sg.Draw();
+	};
+	Wsg.RenderText(Position(0,0),"",Black,Black);
+	focus =5;
+	Wsg.SetMouseClickCallback(f);
+	Wsg.SetQuitCallback(wsgQuit);
+}
+void refresh()
+{	
+	W1Bmp.Draw();
+	refresh2();
+}
+void refresh2()
+{	
+	PrintPhase();
+	for(int i=0;i<NCountry;i++)
+        {
+               
+                if(all[i].ownership==0)
+                {
+                CircleShape C(W1,centers[i],Yellow,diameters[i]);
+                C.Draw();
+                W1.RenderText(centers[i],itoa(all[i].nos),Black,Yellow);
+                }
+                else
+                {
+                CircleShape C(W1,centers[i],White,diameters[i]);
+                C.Draw();
+                W1.RenderText(centers[i],itoa(all[i].nos),Black,White);
+                }
+        }
+        if(turn==1)
+        {
+        	PrintPhase();
+        	//ShowEndTurn();
+        }
+}
+int reinforcement(int a)
+{
+	int nooft=0;
+	for(int i=0;i<NCountry;i++)
+		if(all[i].ownership==a)
+			nooft++;
+	int noofs=0;
+	for(int i=0;i<NCountry;i++)
+		if(all[i].ownership==a)
+			noofs+=all[i].nos;	
+	int reinf=nooft+noofs/10;
+	int sp[6]={1,1,1,1,1,1};
+	int end[7]={0,10,14,20,27,39,43};
+	for(int k=0;k<6;k++)
+		for(int i=end[k];i<end[k+1];i++)
+			if(all[i].ownership!=a)
+				sp[k]=0;
+	for(int i=0;i<6;i++)
+		reinf+=sp[i]*(end[i+1]-end[i]);
+	if(a==1 && reinf>uplayer()*10)
+	return(uplayer()*10);
+	else if(a==0 && reinf>(NCountry-uplayer())*10)
+	return((NCountry-uplayer())*10);
+	return(reinf);
+}
+
+void transfer(int i, int j, int transsol)
+{
+	transsol=transsol%all[i].nos;
+	all[i].nos=all[i].nos-transsol;
+	all[j].nos=all[j].nos+transsol;
+	refresh2();
+	return;
+}
+void transover()
+{
+	refresh();
+	showmsg.msg="Reinforcement phase is over.^Now its Computer's turn.^Defense Phase Begins";
+	showmsg.show();
+	refresh2();
+	PrintRein();
+	PrintLeft("   Reinforcement Phase is over   ");
+	turn=0;
+}
+
+int key(int keycode) 
+{
+	
+	W3.RenderText(Position(6.0,3.0),spaces(80),Yellow,Red);
+	if(keycode==13)
+	{
+		defaultKey(13);
+		return 1;
+	}
+	if(keycode>='0' && keycode<='9')
+	{
+		if(en==0 && keycode=='0')
+		{
+			W3.RenderText(Position(6.0,3.0),itoa(en),Yellow,Red);
+			return 1;
+		}
+		char alpha=keycode;
+		ent+=alpha;	
+	}
+	if(atoi(ent.c_str())>= all[getcountry(first)].nos)
+	{
+		ent = itoa(en);
+	}
+	if(keycode=='\b' && ent!="")
+	{
+		ent=ent.substr(0,ent.length()-1);
+	}
+	en =atoi(ent.c_str());
+	W3.RenderText(Position(6.0,3.0),itoa(en),Yellow,Red);
+	
+}
+int trans(const Position& p)
+{
+	if(getcountry(p)==100)
+	{
+	transcount=0;
+	refresh2();
+	return 1;
+	}
+	if(all[getcountry(p)].ownership==0)
+	return 1;
+	if(transcount%2==0)
+	{
+		first=p;
+		highlight(getcountry(first));
+		transcount++;
+		return 1;
+	}
+	
+	int a=getcountry(first);
+	int b=getcountry(p);
+	bool areNeighbours=false;
+	for(int h=0;h<all[a].non;h++)
+	{
+		if(all[a].neigh[h]==b)
+		{
+			areNeighbours=true;
+			break;
+		}
+	}	
+	if(areNeighbours==false)
+	{
+		PrintLeft("Choose a neighbour country.");
+		return 1;
+	}
+	second=p;
+	
+	highlight(b);
+	createTriangle(Red,a,b);
+	CircleShape Ca(W1,centers[a],Red,diameters[a]);
+        Ca.Draw();
+        W1.RenderText(centers[a],itoa(all[a].nos),Yellow,Red);
+	if(a==b)
+	{
+		PrintLeft("Choose a different country.");
+		return 1;
+	}
+	transcount++;
+	mid=true;
+	en = all[a].nos-1;
+	showmsg.msg="Enter number of soldiers to be tranferred from ^" + all[a].name +" to "+all[b].name +". (your^ input will be restricted to "+itoa(all[a].nos-1)+" )";
+	showmsg.showenter();
+	W3.SetKeyPressCallback(key);
+	return 0;	
+}
+		
+void createTriangle(color c,int c1,int c2)
+{
+	Position points[3];
+	points[0]=centers[c2];
+      	double x1=centers[c1].GetXDistance();
+      	double y1=centers[c1].GetYDistance();
+       	double x2=centers[c2].GetXDistance();
+       	double y2=centers[c2].GetYDistance();
+      	double d= sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+       	double xf=(diameters[c1]/2)*(y2-y1)/d;
+       	double yf=(diameters[c1]/2)*(x2-x1)/d;
+       	points[1]=centers[c1]+Position(xf,-1*yf);
+       	points[2]=centers[c1]+Position(-1*xf,yf);
+	W1.RenderPolygon(points, 3, c, false);
+}
+void reduceSoldiers(int c1,int c2)
+{
+	if(all[c1].nos >=10 && all[c2].nos>=10)
+	{
+		int a1 = all[c1].nos;
+		int a2 = all[c2].nos;
+		int subs=0;
+		if(a1>a2)
+		subs=3*a2/5;
+		else
+		subs=3*a1/5;
+		for(int h=0;h<subs;h++)
+		{
+			all[c1].nos-=1;
+			refresh2();
+			flush();
+			usleep(10000);
+			all[c2].nos-=1;
+			refresh2();
+			flush();
+			usleep(10000);
+		}	
+	}
+	if(turn==0 && all[c2].nos>=5)
+	{
+		for(int j=0;j<1;j++)
+		{
+			all[c2].nos-=1;
+			refresh2();
+			flush();
+			usleep(10000);
+		}	
+	} 
+	if(turn==1 && all[c1].nos>=5)
+	{
+		for(int j=0;j<1;j++)
+		{
+			all[c1].nos-=1;
+			refresh2();
+			flush();
+			usleep(10000);
+		}	
+	}
+	return; 
+}
+void war(int c1,int c2)
+{
+	//if(turn==1)
+
+	refresh();
+	flush();
+	mode=false;
+	color cattacker=White,cdefender=Yellow;
+	
+	string strattacker="Player 1";
+	string strdefender="Computer";
+	if(all[c1].ownership==0)
+	{
+		strdefender="Player 1";
+		strattacker ="Computer";
+		cdefender=White;
+		cattacker=Yellow;
+	}
+	if(turn==1)
+     	createTriangle(Blue,c1,c2);
+     	else
+     	createTriangle(Blue,c1,c2);
+     	reduceSoldiers(c1,c2);
+	CircleShape C2(W1,centers[c1],cattacker,diameters[c1]);
+	C2.Draw();
+	W1.RenderText(centers[c1],itoa(all[c1].nos),Black,cattacker);
+	
+	W1.RenderText(Position(0,19.8),"",Yellow,Red);
+	usleep(300000);
+
+	int a=all[c1].nos,b=all[c2].nos;
+
+	while((a!=1)&&(b!=0))
+	{
+		int c=rand()%(a+b);
+		if(c<b)
+			{
+			a=a-1;
+			}
+		else
+			{
+			b=b-1;
+			}
+		
+		all[c1].nos=a;all[c2].nos=b;
+		refresh2();
+		flush();
+		usleep(10000);
+		refresh2();
+	}
+	if(a==1)
+	{
+		all[c1].nos=a;all[c2].nos=b;
+		PrintLeft("Invasion failed. "+all[c2].name+" is retained by "+strdefender);
+		showmsg.msg=all[c2].name+" resists invasion from "+all[c1].name+".^ Territory retained by "+strdefender;
+		showmsg.show();
+                CircleShape C(W1,centers[c2],cdefender,diameters[c2]);
+                C.Draw();
+	}
+	else if(b==0)
+	{
+		all[c2].ownership=all[c1].ownership;
+		all[c1].nos=a/2;
+		all[c2].nos=a-a/2;
+                CircleShape C(W1,centers[c2],cattacker,diameters[c2]);
+                C.Draw();
+          	if (uplayer()==NCountry)
+          	{
+          		showmsg.msg="   YOU   WIN  !!!";
+          		turn=0;
+          		mode=true;
+          		::count=1;
+          		working=false;
+          		refresh();
+          		won=true;
+			showmsg.show();
+			return;
+          	}
+          	if (uplayer()==0)
+          	{
+          		turn=0;
+          		showmsg.msg="   YOU   LOSE  !!!";
+          		mode=true;
+          		lost=true;
+          		::count=1;
+          		working=false;
+          		refresh();
+          		showmsg.show();
+			return;
+          	}       
+		PrintLeft("Invasion successful. "+all[c2].name+" has been captured by "+ strattacker);
+		showmsg.msg=all[c1].name+" successfully invades "+all[c2].name+".^ Territory captured by "+ strattacker;
+		showmsg.show();
+	}
+                CircleShape C(W1,centers[c1],cattacker,diameters[c1]);
+                C.Draw();
+                W1.RenderText(centers[c1],itoa(all[c1].nos),Black,cattacker);
+		if(b==0)
+                W1.RenderText(centers[c2],itoa(all[c2].nos),Black,cattacker);
+		else
+                W1.RenderText(centers[c2],itoa(all[c2].nos),Black,cdefender);
+		PrintRein();
+		::count=1;
+		mode=true;
+		cout<<turn<<"\t"<<all[c1].name<<"\t"<<all[c2].name<<"\t"<<uplayer()<<endl;
+}
+
+int maxcountry(bool count[])
+{
+	int sum,sum1=0,retval=-1;
+	for(int i=0;i<NCountry;i++)
+	{
+		if(all[i].ownership!=0 || count[i]==false)
+			continue;
+		sum=0;
+		for(int k=0;k<all[i].non;k++)
+		{
+			if(all[all[i].neigh[k]].ownership==1)
+				sum+=all[all[i].neigh[k]].nos;
+		}
+		if(sum>sum1)
+		{
+			retval=i;
+			sum1=sum;
+		}
+	}
+	return(retval);
+}
+void visualizeReinf(int country1,int reinfno,bool count[],int &reinf)
+{
+	CircleShape C2(W1,centers[country1],Red,diameters[country1]);
+	C2.Draw();
+	W1.RenderText(centers[country1],itoa(all[country1].nos),Black,Red);
+	W1.RenderText(Position(0,19.8),"",Black,Yellow);
+	usleep(500000);
+	all[country1].nos+=reinfno;
+	CircleShape C3(W1,centers[country1],Red,diameters[country1]);
+	C3.Draw();
+	W1.RenderText(centers[country1],itoa(all[country1].nos),Black,Red);
+	W1.RenderText(Position(0,19.8),"",Black,Yellow);
+	usleep(500000);
+	refresh2();
+	count[country1]=false;
+	reinf-=reinfno;
+	PrintRein(reinforcement(1),reinf);
+}
+int getNearestNeedy(int i,bool count[])
+{
+	int dist=NCountry,cc=0;
+	for(int j=0;j<NCountry;j++)
+	{
+		if(all[j].ownership==1 || count[j]==false)
+		continue;
+		if(fabs(i-j)<dist)
+		{
+			cc=j;
+			dist = int(fabs(i-j));
+			continue;
+		}
+		if(fabs(i-j)==dist && all[j].nos<all[cc].nos)
+		{
+			cc=j;
+		}
+	}
+	return cc;
+}
+void aireinforce(int reinf)
+{
+	PrintLeft("   Reinforcement is going on...   ");
+	bool count[NCountry];
+	for(int i=0;i<NCountry;i++)
+		count[i]=true;
+	while(reinf>10)
+	{
+		int country1=maxcountry(count);
+		if(country1!=-1)
+		visualizeReinf(country1,10,count,reinf);
+		else
+		break;
+		
+	}
+	for(int i=0;i<NCountry && reinf!=0;i++)
+	{
+		if(all[i].ownership==0)
+		continue;
+		while(reinf>=10)
+		{
+		int j=getNearestNeedy(i,count);
+		visualizeReinf(j,reinf%10+1,count,reinf);
+		PrintRein(reinforcement(1),reinf);
+		}
+		int j=getNearestNeedy(i,count);
+		visualizeReinf(j,reinf,count,reinf);
+		PrintRein(reinforcement(1),reinf);
+	}
+	if(reinf!=0)
+	{
+		int country2=rand()%(NCountry-uplayer()),j=0;
+		for(int i=0;i<NCountry;i++)
+		{
+			if(all[i].ownership==0)
+			{
+				j++;
+				if(j==country2)
+				{
+				visualizeReinf(i,reinf,count,reinf);
+				break;
+				}
+			}
+		}
+	}
+	return;
+}
+void attack(int a,int b)
+{
+	//takes two countries and creates war simulation for them
+	flush();
+	flush();
+	war(a,b);
+	usleep(300000);
+	return;
+}
+int getNOppNeighbours(int i)
+{
+	int sum=0;
+	for(int j=0;j<all[i].non;j++)
+	{
+		if(all[all[i].neigh[j]].ownership==1)
+		sum+=all[all[i].neigh[j]].nos;
+	}
+	return sum;
+}
+bool getMaxNCountry(int &co,int &ci,int play)
+{
+// returns country pair with maximum sum of no. of opponent soldiers as neighbours of ci -(minus) that for co
+	int maxsum=0;
+	bool start=false;
+	for(int i=0;i<NCountry;i++)
+	{
+		if(all[i].ownership==play)
+			continue;
+		for(int j=0;j<all[i].non;j++)
+		{
+			if(all[all[i].neigh[j]].ownership==play)
+				continue;
+			int checksum=getNOppNeighbours(i)-getNOppNeighbours(all[i].neigh[j]);
+			if(start==false)
+			{
+				maxsum=checksum;
+				start=true;
+				co=all[i].neigh[j];
+				ci=i;
+			}
+			else if(checksum>maxsum)
+			{
+				co=all[i].neigh[j];
+				ci=i;
+			}
+			else if(checksum==maxsum && all[co].nos<all[all[i].neigh[j]].nos)
+			{
+				co=all[i].neigh[j];
+				ci=i;
+			}
+		}
+	}
+	return  start;
+}
+bool willBeBlocked(int i,int j)
+{
+	//returns whether after attacking and winning from country i(comp) to j(player1) soldiers of i will be blocked or not
+	int a=all[i].nos;
+	int b= all[j].nos;
+	for(int k=0;k<all[j].non;k++)
+	{
+		if(all[all[j].neigh[k]].ownership==1 && (a+1)>=b && all[all[j].neigh[k]].nos<sqrt((a+1)*(a+1)-b*b))
+		return false;
+	}
+	return true;
+}
+void multipleAttackAI(int c)
+{
+	for(int i=0;i<all[c].non;i++)
+	{
+		if(all[all[c].neigh[i]].ownership==0 && all[c].ownership==1 && all[all[c].neigh[i]].nos>1)
+		attack(all[c].neigh[i],c);
+	}
+	return;
+}
+void AI(void)
+{
+	if(won==true || lost==true)
+	{
+		return;
+	}
+	working=true;
+	turn=0;
+	strphase="Defense Phase";
+	PrintPhase();
+	for(int i=0;i<NCountry;i++)
+	{	
+		if(all[i].ownership==1 || all[i].nos==1)
+			continue;
+		int sum=0;
+		for(int j=0;j<all[i].non;j++)
+		{	if(all[all[i].neigh[j]].ownership==0)
+				continue;
+			if(getNOppNeighbours(all[i].neigh[j])>all[all[i].neigh[j]].nos )
+			{
+				multipleAttackAI(all[i].neigh[j]);
+				AI();
+				return;
+			}
+			if(all[i].nos>all[all[i].neigh[j]].nos+4 && willBeBlocked(i,all[i].neigh[j])==false)
+			{
+				attack(i,all[i].neigh[j]);
+				
+				if(aimode==false)
+				{
+					AI();
+				}
+				return;
+			}
+			sum+=all[all[i].neigh[j]].nos;
+		}
+		if(sum!=0 && (((float)all[i].nos)/sum)>=0.5 )
+		{
+			for(int j=0;j<all[i].non;j++)
+			{	
+				if(all[all[i].neigh[j]].ownership==1 && all[i].nos>=all[all[i].neigh[j]].nos && willBeBlocked(i,all[i].neigh[j])==false)
+				{
+					attack(i,all[i].neigh[j]);
+					if(aimode==false)
+					{
+						AI();
+					}
+					return;
+				}
+			}
+		}
+	}
+	
+	refresh();
+	strphase="Reinforcement Phase";
+	PrintPhase();
+	int reinf=reinforcement(0);
+//	refresh2();
+	aireinforce(reinf);
+	refresh2();
+	usleep(600000);
+	//transfers
+	int co,ci;
+	// country pair with maximum sum of no. of opponent soldiers as neighbours of ci -(minus) that for co
+	if(getMaxNCountry(co,ci,1) && co>=0 && co<=42 && ci>=0 && ci<=42 && all[co].nos>1)
+	{
+		PrintLeft("Transferring soldiers from " + all[co].name+ " to " + all[ci].name);
+		highlight(co);
+		flush();
+		usleep(300000);
+		highlight(ci);
+		flush();
+		usleep(300000);
+		createTriangle(Red,co,ci);
+		flush();
+		sleep(1);
+		transfer(co,ci,all[co].nos-1);
+		refresh();
+	} 
+	working=false;
+	turn=1;
+	focus=1;
+	c1=-1;c2=-1;
+	strphase="Attack Phase";
+	PrintLeft("Computer's turn is over. Your chance...  ");
+	
+	showmsg.msg="Computer's Reinforcement Phase is over. ^ It's Your turn...^ Attack Phase Begins ";
+	PrintRein();
+	showmsg.show();
+	PrintPhase();
+       //ShowEndTurn();
+	return;
+}
+void randomdist(int b[NCountry],int c[NCountry])
+{ 
+	
+       int nplay=0;
+	 int playsol=66;
+	 int compsol=63;
+	 bool cp=true,cc=true;
+        int a[NCountry][2];
+        for(int i=0;i<NCountry;i++)
+        {        a[i][0]=i;
+                a[i][1]=0;   
+                c[i]=3;     
+        }
+        //int b[i]=0 for comp n 1 for player occupying territory no. i;
+        // a[i][1]=0 if territory a[i][0] is occupied by computer and 1 for player
+        
+        for(int i=NCountry;i>=1;i--)
+        {        //a[i]=0;
+                int b=rand()%i;
+                a[b][1]=1;
+                //now swap a[b][] with last array a[i-1][]
+                int temp=a[i-1][0];
+                a[i-1][0]=a[b][0];
+                a[b][0]=temp;
+                temp=a[i-1][1];
+                a[i-1][1]=a[b][1];
+                a[b][1]=temp;
+                nplay++;
+                if(nplay==22)
+                break;
+        }
+        //up:
+        for(int i=0;i<NCountry;i++)
+	{
+	 b[a[i][0]]=a[i][1];
+	}
+        while (1)
+        {
+                int i=rand()%NCountry;
+                 	 if(b[i]==0 && cc==true)
+        		 {
+        		 c[i]+=1;
+        		 compsol+=1;
+        		 }
+        		 else if(b[i]==1 && cp==true)
+        		 {
+        		 c[i]+=1;
+        		 playsol+=1;
+        		 }
+        		 if(compsol>=Neasy)
+        		 cc=false;
+        		 if(playsol>=Neasy)//replace Neasy with Nhard for harder game....
+        		 cp=false;
+        		 if(cp==false && cc==false)
+        		 break;
+        }
+        
+}
+int getcountry(const Position &p)
+{
+	int c=100; 
+	for(int i=0;i<NCountry;i++)
+        {
+                if(isinside(p,i)==true)
+                {
+                        c=i;break;
+                }
+        }
+        return c;
+}
+bool isinside(Position p,int l)
+{
+        if((p.GetXDistance()-centers[l].GetXDistance())*(p.GetXDistance()-centers[l].GetXDistance())+(p.GetYDistance()-centers[l].GetYDistance())*(p.GetYDistance()-centers[l].GetYDistance())<=diameters[l]*diameters[l]/4)
+                return(true);
+        else
+                return(false);
+}
+void loadgame(string filename)
+{
+		loaded=1;
+		
+		ifstream fin(filename.c_str());
+		for(int i=0;i<NCountry;i++)
+		{
+			fin>>all[i].ownership;
+			fin>>all[i].nos;
+		}
+		fin.close();
+}
+void savegame(string filename)
+{
+		
+		ofstream fout(filename.c_str());
+		for(int i=0;i<NCountry;i++)
+		{
+			fout<<all[i].ownership<<" "<<all[i].nos<<endl;
+		}
+		fout.close();
+} 
+int mouseClickFocus5(const Position& p)
+{
+	if (ls=="load")
+	{
+		if(game1.IsInside(p))
+		{
+			loadgame("../data/savegame1.txt");
+		}
+		if(game2.IsInside(p))
+		{
+        		loadgame("../data/savegame2.txt");
+		}
+		if(game3.IsInside(p))
+		{
+			loadgame("../data/savegame3.txt");
+		}
+		if(game4.IsInside(p))
+		{
+			loadgame("../data/savegame4.txt");
+		}
+		if(game5.IsInside(p))
+		{
+			loadgame("../data/savegame5.txt");
+		}
+		gameproceed();
+		Wsg.Close();
+		return 0;
+	}
+	if (ls=="save")
+	{
+		bool g1=game1.IsInside(p);
+		bool g2=game2.IsInside(p);
+		bool g3=game3.IsInside(p);
+		bool g4=game4.IsInside(p);
+		bool g5=game5.IsInside(p);
+		if(g1)
+		{
+			savegame("../data/savegame1.txt");
+		}
+		if(g2)
+		{
+			savegame("../data/savegame2.txt");
+		}
+		if(g3)
+		{
+			savegame("../data/savegame3.txt");
+		}
+		if(g4)
+		{
+			savegame("../data/savegame4.txt");
+		}
+		if(g5)
+		{
+			savegame("../data/savegame5.txt");
+		}
+		if(g1||g2||g3||g4||g5)
+		{
+			Wsg.Close();
+			focus=1;
+			showmsg.msg=" Game Saved.  Continue playing...";
+			showmsg.show();
+			PrintLeft(" Continue...");
+		}
+		return 0;
+	}
+}
+int mouseClickFocus32(const Position& p)
+{
+	if(W3Bmp.IsInside(p)==true)
+	{
+		//W3Bmp.Erase();
+		W3Bmp.Load("../images/ok1p.xpm");
+		//assert(W3Bmp.GetStatus() == BitMapOkay);
+        	W3Bmp.SetPosition(Position(2.5, 3.9));
+        	W3Bmp.Draw();
+        	W3.RenderText(Position(0,0),"",Yellow,Red);
+        	usleep(100000);
+        	focus=4;
+        	startup();
+        	W3.Close();
+        	W1.Close();
+       		return 0;
+	}
+	if(W3Bmp2.IsInside(p)==true)
+	{
+		//W3Bmp.Erase();
+		W3Bmp2.Load("../images/Cancelp.xpm");
+		//assert(W3Bmp.GetStatus() == BitMapOkay);
+        	W3Bmp2.SetPosition(Position(6.5, 3.9));
+        	W3Bmp2.Draw();
+        	W3.RenderText(Position(0,0),"",Yellow,Red);
+        	usleep(100000);
+        	focus=prevfocus;
+        	prevfocus=1;
+       		W3.Close();
+       		return 0;
+	}
+}
+int mouseClickFocus3(const Position& p)
+{
+	if(MM.IsInside(p))
+	{
+		W3.Close();
+		MM.Load("../images/MMp.xpm");
+        	MM.SetPosition(Position(19.2, 20.1));
+        	MM.Draw();
+        	flush();
+        	usleep(100000);
+        	MM.Load("../images/MMup.xpm");
+        	MM.SetPosition(Position(19.2, 20.1));
+        	MM.Draw();
+        	flush();
+        	prevfocus=1;
+		showmsg.msg=" Do you want to leave this game? ";
+		showmsg.ShowOkCancel();
+		return 1;
+	}
+	if(W3Bmp.IsInside(p)==true)
+	{
+		W3Bmp.Load("../images/okp.xpm");
+		assert(W3Bmp.GetStatus() == BitMapOkay);
+        	W3Bmp.SetPosition(Position(5.0, 3.9));
+        	W3Bmp.Draw();
+        	W3.RenderText(Position(0,0),"",Yellow,Red);
+        	usleep(100000);	
+		if(mid==true)
+		{
+			
+			W3.Close();
+			transfer(getcountry(first),getcountry(second),en);
+			refresh2();
+			mid=false;
+			en=0;
+			ent="";
+			if(transcount%2==0)
+			{
+				W1.SetMouseClickCallback(f);
+				transcount=0;
+				transover();
+			}		
+			return 0;
+		}
+		if(turn==1 && strphase=="Reinforcement Phase")
+		{
+			W3.Close();
+			focus=2;
+			return 0;
+		};		
+		if(showmsg.msg=="Thank You for Playing Invaders...")
+		{
+			ApiEnd();
+			return 0;
+		}
+		if(won || lost)
+		{
+			startup();
+			won =false;
+			lost = false;
+			W3Bmp.Erase();
+			W3.Close();
+			focus=4;
+			W1.Close();
+			return 0;
+		};
+		W3Bmp.Erase();
+		W3.Close();
+		focus=1;
+		if(turn==0)
+		{
+			AI();
+		}
+		return 0;
+	}
+	else
+	return 0;
+}
+int mouseClickFocus2(const Position& p)
+{
+	if(reinf>0)
+	{
+		bool ans=false;
+		int reinfcountry;
+		for(int i=0;i<NCountry && ans==false;i++)
+		{
+			ans=isinside(p,i);
+			if(ans) { reinfcountry=i;};
+		}
+		if(ans==false)
+		{
+			PrintLeft(" You haven't selected any coutry. ");
+			return 0;
+		}
+		else if(all[reinfcountry].ownership!=1)
+		{
+			PrintLeft(all[reinfcountry].name+": This is not your country. ");
+			return 0;
+		}
+		else if(all[reinfcountry].nos>=oldsold[reinfcountry]+10)
+		{
+			PrintLeft("You cannot increase more than 10 soldiers in a country. ");
+		showmsg.msg=" Reinforcement Rule --You cannot ^increment more than 10 soldiers in a country.^Already added 10 soldiers to "+all[reinfcountry].name;
+		showmsg.show();
+			return 0;
+		}
+		else
+		{
+			if(reinf>5)
+			{
+		               	highlight(reinfcountry);
+				all[reinfcountry].nos+=5;
+				reinf-=5;
+				usleep(600000);
+		                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Yellow,Red);
+				flush();
+				usleep(300000);
+				refresh2();
+				W1.RenderText(Position(22,19.8),spaces(101),Yellow,Red);
+				W1.RenderText(Position(21,19.8),"  No of reinforcement : User : "+itoa(reinf)+"   Computer : "+itoa(reinforcement(0)),Yellow,Red);
+				PrintLeft(" 5 soldiers added to "+all[reinfcountry].name);
+				return 0;
+			}
+			else
+			{
+		                highlight(reinfcountry);
+				all[reinfcountry].nos+=1;
+				reinf--;
+				usleep(600000);
+		                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Yellow,Red);
+				flush();
+				usleep(300000);
+				refresh2();
+				W1.RenderText(Position(22,19.8),spaces(124),Yellow,Red);
+				PrintRein(reinf,reinforcement(0));
+				PrintLeft(" 1 soldier added to "+all[reinfcountry].name);
+				if(reinf==0 && uplayer()!=1)
+				{
+					showmsg.msg="Choose two countries one after^ the other to tranfer your troops^ from first country to the second.^(you are allowed only one transfer)";
+					ent="";
+					transcount=0;
+					showmsg.show();	
+					PrintLeft("choose countries for transfer of soldiers");
+					W1.SetMouseClickCallback(trans);
+					return 0;
+				}
+				int a=0,b=0;
+				if(reinf==0 && getMaxNCountry(a,b,0)==false)
+				{
+					transover();
+				}
+				return 0;
+			}
+		}
+	}
+}
+int mouseClickFocus4(const Position& p)
+{
+	double pt[4][4];
+        fillup(pt);
+        double x=p.GetXDistance();
+        double y=p.GetYDistance();
+        if(x>=pt[0][0] && x<=(pt[0][3]-.2) && y>=pt[0][1] && y<=(pt[0][2]-.2))
+        {
+        //play game
+        	createrectangle(pt[0],Blue,Black);
+        	W4.RenderText(Position(0,0),"",Yellow,Red);
+        	usleep(150000);
+        	createrectangle(pt[0],Yellow,Red);
+        	W4.RenderText(Position(0,0),"",Yellow,Red);
+        	usleep(150000);
+		gameproceed();
+		W4Bmp.Erase();
+		W4.Close();
+	}
+	if(x>=pt[1][0] && x<=(pt[1][3]-.2) && y>=pt[1][1] && y<=(pt[1][2]-.2))
+        {
+	//how to play
+	}
+	if(x>=pt[2][0] && x<=(pt[2][3]-.2) && y>=pt[2][1] && y<=(pt[2][2]-.2))
+        {
+	//load game
+        	createrectangle(pt[2],Blue,Black);
+        	W4.RenderText(Position(0,0),"",Yellow,Red);
+        	usleep(150000);
+        	createrectangle(pt[2],Yellow,Red);
+        	W4.RenderText(Position(0,0),"",Yellow,Red);
+        	usleep(150000);
+		ls="load";
+		showsave();
+		W4Bmp.Erase();
+		W4.Close();
+	}
+	if(x>=pt[3][0] && x<=(pt[3][3]-.2) && y>=pt[3][1] && y<=(pt[3][2]-.2))
+        {
+	//quit
+		createrectangle(pt[3],Black,Yellow);
+        	W4.RenderText(Position(0,0),"",Yellow,Red);
+        	usleep(150000);
+        	createrectangle(pt[3],Black,Blue);
+        	W4.RenderText(Position(0,0),"",Yellow,Red);
+        	usleep(150000);
+		W4Bmp.Erase();
+		W4.Close();
+		showmsg.msg="Thank You for Playing Invaders...";
+		showmsg.show();
+	}
+	return 0;
+}
+int mouseClickFocus1NotButton(const Position& p)
+{
+        int c=100,valid=1;
+       
+	c=getcountry(p);
+	if(c==100 && ::count==2)
+	{
+                CircleShape C(W1,centers[c1],White,diameters[c1]);
+                C.Draw();
+                W1.RenderText(centers[c1],itoa(all[c1].nos),Black,White);
+	PrintLeft("    Country deselected. Select any other country ");
+		::count=1;
+		return 1;
+	}
+        else if(c==100 && ::count==1)
+        {
+	PrintLeft("   You haven't selected any country   ");
+        return 1;
+        }
+		for(int i=0;i<all[c].non;i++)
+		{
+				if(all[all[c].neigh[i]].ownership!=all[c].ownership)
+				{		
+						valid=0;
+						break;
+				}
+		}
+        if(::count==1)
+        {        
+		if(all[c].ownership!=1)
+		{
+			PrintLeft(all[c].name+": is not owned by you.    ");
+			return 2;
+		};		
+		if(valid==1)
+		{
+			PrintLeft(all[c].name+": There is no neighbouring country of opponent ");
+        		return 1;
+        	}		
+		if(all[c].nos==1)
+		{
+			PrintLeft(all[c].name+": One soldier cannot attack   ");
+	        	return 1;
+        	}		
+	
+		c1=c;
+                ::count+=1;
+	PrintLeft("       Selected country :"+all[c1].name);
+                highlight(c1);
+                
+        }
+        else if(::count==2)
+        {
+		if(all[c].ownership!=0)
+		{
+	PrintLeft(all[c].name+": This is not opponent's country ");
+		return 2;
+		};
+		int xx=0;
+		for(int i=0;i<all[c1].non;i++)
+		{
+			if(c==all[c1].neigh[i])
+			{
+			c2=c;
+	                ::count=3;
+           	    	 xx=1;
+			war(c1,c2);
+			refresh();
+			break;
+			};
+		}
+		if(xx==0)
+		{
+	PrintLeft(all[c].name+": This is not neighbouring country");
+		return 2;
+		};
+			
+        }
+        return 1;
+}
+int f(const Position& p)
+{	
+	//cout<<focus<<endl;cout.flush();
+	if(focus==5)
+	{
+		return mouseClickFocus5(p);
+	}
+	if(focus==32)
+	{
+		return mouseClickFocus32(p);
+	}
+	if (focus==3)
+	{
+		return mouseClickFocus3(p);
+	}
+	if(focus==2)
+	{
+		if(MM.IsInside(p))
+		{
+			MM.Load("../images/MMp.xpm");
+        		MM.SetPosition(Position(19.2, 20.1));
+        		MM.Draw();
+        		flush();
+        		usleep(50000);
+        		MM.Load("../images/MMup.xpm");
+        		MM.SetPosition(Position(19.2, 20.1));
+        		MM.Draw();
+        		flush();
+        		prevfocus=2;
+			showmsg.msg=" Do you want to leave this game? ";
+			showmsg.ShowOkCancel();
+			return 1;
+		}
+		return mouseClickFocus2(p);
+	}
+	if (focus==4)
+	{
+		return mouseClickFocus4(p);
+	}
+	if(working)
+	return 0;
+	//focus==1
+	if(MM.IsInside(p))
+	{
+		MM.Load("../images/MMp.xpm");
+        	MM.SetPosition(Position(19.2, 20.1));
+        	MM.Draw();
+        	flush();
+        	usleep(100000);
+        	MM.Load("../images/MMup.xpm");
+        	MM.SetPosition(Position(19.2, 20.1));
+        	MM.Draw();
+        	flush();
+        	prevfocus=1;
+		showmsg.msg=" Do you want to leave this game? ";
+		showmsg.ShowOkCancel();
+		return 1;
+	}
+	if(SG.IsInside(p))
+	{
+		ls="save";
+		PrintLeft(" Saving...");
+		SG.Load("../images/SGp.xpm");
+        	SG.SetPosition(Position(7.2, 20.1));
+        	SG.Draw();
+        	flush();
+        	usleep(100000);
+        	SG.Load("../images/SGup.xpm");
+        	SG.SetPosition(Position(7.2, 20.1));
+        	SG.Draw();
+        	flush();
+        	showsave();
+	}		
+	if(ET.IsInside(p))
+	{	
+		ET.Load("../images/ETp.xpm");
+        	ET.SetPosition(Position(13.2, 20.1));
+        	ET.Draw();
+        	flush();
+        	usleep(100000);
+        	ET.Load("../images/ETup.xpm");
+        	ET.SetPosition(Position(13.2, 20.1));
+        	ET.Draw();
+        	flush();
+		working=true;
+		PrintRein();
+		strphase="Reinforcement Phase";
+		PrintPhase();
+		refresh2();
+		showmsg.msg=" You have to click on the country to increment number of^ soldiers. Till the number of reinforcement becomes less^ than 5, 5 soldiers are added. After that only one^ soldier will get incremented at a click. Make ^the most helpful distribution of the soldiers you have.";
+		 //Include in How to play???
+		showmsg.show();
+		for(int i=0;i<NCountry;i++)
+		oldsold[i]=all[i].nos;
+		reinf=reinforcement(1);
+		PrintLeft(" Start selecting countries... ");
+
+		return 1;
+	}
+	return mouseClickFocus1NotButton(p);
+}
+void getclick(void)
+{
+        W1.SetMouseClickCallback(f);
+        W1.SetKeyPressCallback(keypress);
+}
+void createrectangle(double a[4],color cl1,color cl2)
+{
+	Position myp[4]={Position(a[0],a[1]),Position(a[0],a[2]),Position(a[3],a[2]),Position(a[3],a[1])};
+        Position myq[4]={Position(a[0]-0.2,a[1]-0.2),Position(a[0]-0.2,a[2]-0.2),Position(a[3]-0.2,a[2]-0.2),Position(a[3]-0.2,a[1]-0.2)};
+        for(int i=0;i<4;i++)
+        {
+        	W4.RenderLine(myp[i],myp[(i+1)%4],cl1,0.05);
+        	W4.RenderLine(myq[i],myq[(i+1)%4],cl2,0.05);
+        }
+}
+void fillup(double pt[4][4])
+{
+	  double x1=4.96,x2=11.25,y1=4.85,y2=6.3;
+        pt[0][0]=x1;
+        pt[0][1]=y1;
+        pt[0][2]=y2;
+        pt[0][3]=x2;
+        for(int i=1;i<=3;i++)
+        {
+        	pt[i][0]=pt[i-1][0]+3.0;
+        	pt[i][1]=pt[i-1][1]+2.2;
+        	pt[i][2]=pt[i-1][2]+2.2;
+        	pt[i][3]=pt[i-1][3]+3.0;
+        	
+        }
+}
+void startup()
+{
+	W4.Open();
+	ls="load";
+        assert(W4.GetStatus() == WindowOpen);
+        W4.SetMouseClickCallback(f);
+	W4.RenderRectangle(Position(0,0),Position(23.8,18.5),Black,false);
+        W4Bmp.Load("../images/31.xpm");
+        assert(W4Bmp.GetStatus() == BitMapOkay);
+
+        W4Bmp.SetPosition(Position(0.25, 0.5));
+        W4Bmp.Draw();
+        double pt[4][4];
+        fillup(pt);
+        createrectangle(pt[0],Black,Cyan);
+        
+        createrectangle(pt[1],Blue,Yellow);
+        createrectangle(pt[2],Green,Black);
+        createrectangle(pt[3],Red,Yellow);
+
+}
+
+int defaultKey(int keycode) 
+{
+
+	if(keycode==13)
+	{
+		f(Position(5.1,4.2));
+	}
+	return 1;
+}
+
+color randomColor()
+{
+	switch (rand()%6)
+	{
+		case 0 :
+			return(Blue);
+		case 1 :
+ 			return(Cyan);
+		case 2 :
+			return(Yellow);
+		case 3 :
+			return(Green);
+		case 4 :
+			return(Magenta);
+		case 5 :
+			return(Red);
+	}
+}
+double calculateY(int i)
+{
+	double xi=showUpCentres[i].GetXDistance();
+	double yi=showUpCentres[i].GetYDistance();
+	double x=(counter/NDIV)*xi*(1+4*sin(PI*x/xi)*sin(PI*(23.8-x)/xi));
+	return(((0.0035*(xi-x)*(23.8-xi-x)*(i*i*sin(i*i)+1)/(NDIV-i))*sin(PI*x/xi)*sin(PI*(23.8-x)/xi))+yi);
+	
+	
+}
+int spltimer()
+{
+	if(counter==NDIV+1)
+	{
+		sleep(1);
+		stylishINV.Load("../images/title.xpm");
+        	assert(stylishINV.GetStatus() == BitMapOkay);
+        	stylishINV.SetPosition(Position(3.20912, 1.15909));
+        	stylishINV.Draw();
+		
+		W4.RenderRectangle(Position(4.36364,7.36364),Position(20.6364,7.56364),Red,false);
+		for(int i=0;i<NDOTS;i++)
+        	{
+       			double yco=showUpCentres[i].GetYDistance();
+       			double xco=showUpCentres[i].GetXDistance();
+
+       			CircleShape C(W4,Position(xco,yco),randomColor(),0.15);
+			C.Draw();
+        	}
+        	W4.StopTimer();
+        	loadingWindow();
+        	return 1;
+	}
+       	W4.RenderRectangle(Position(0,0),Position(23.8,18.5),Black,false);
+        
+        
+	for(int i=0;i<NDOTS;i++)
+        {
+       		double yco=calculateY(i);
+       		double xco;
+       		double xi=showUpCentres[i].GetXDistance();
+       		xco=counter*showUpCentres[i].GetXDistance()/NDIV;
+       		if(i%2==1)
+       		xco=(23.8*(NDIV-counter)/NDIV+counter*(showUpCentres[i].GetXDistance())/NDIV);
+		xco=xco*(1+4*sin(PI*xco/xi)*sin(PI*(23.8-xco)/xi));
+       		CircleShape C(W4,Position(xco,yco),randomColor(),0.15);
+		C.Draw();
+		
+        }
+        W4.RenderText(Position(11.9,12.0),"",Yellow,Red);
+        counter++;
+        
+}
+void invadersShowUp()
+{
+	W4.Open();
+	W4.RenderRectangle(Position(0,0),Position(23.8,18.5),Black,false);
+        for(int i=0;i<NDOTS;i++)
+        {
+       		double X,Y;
+		fcentres>>X>>Y;
+        	showUpCentres[i]=Position(X,Y);
+        }
+        W4.SetTimerCallback(spltimer);
+        W4.StartTimer(7);
+}
+void loadingWindow()
+{
+	
+	ifstream f1("../data/jpg.txt");
+	ifstream f2("../data/xpm.txt");
+	double d=100.00/24.00;
+	//string strload="Loading 0 %";
+	//W4.RenderText(Position(11.9,12.0),strload,Yellow,Red);
+	loadBmp.Load("../images/loading.xpm");
+        assert(loadBmp.GetStatus() == BitMapOkay);
+       	loadBmp.SetPosition(Position(8.4, 9));
+       	loadBmp.Draw();
+	W4.RenderRectangle(Position(5.9,13),Position(17.9,13.4),Red,true);
+	W4.RenderText(Position(11.9,12.0),"",Yellow,Red);
+	string jpg;
+	string xpm;
+	for(int i=0;i<24;i++)
+	{
+
+		f1>>jpg;
+		f2>>xpm;
+		string t ="convert "+jpg+" "+xpm;
+		system(t.c_str());
+		//string strload="Loading " + itoa(ceil(d*(i+1)))+" %";
+		//W4.RenderText(Position(11.9,12.0),strload,Yellow,Red);
+		
+		double xCoOrd=5.9 +12.0*ceil(d*(i+1))/100.0;
+		W4.RenderRectangle(Position(5.9,13),Position(xCoOrd,13.4),Blue,false);
+		W4.RenderText(Position(11.9,12.0),"",Yellow,Red);
+	}
+	sleep(1);
+	startup();
+}
+void gameproceed()
+{
+	
+	W1.Open();
+	focus=1;
+        assert(W1.GetStatus() == WindowOpen);
+	W1Bmp.Load("../images/World.xpm");
+	W1Bmp2.Load("../images/lr.xpm");
+	W1Bmp3.Load("../images/ud.xpm");
+	W1Bmp4.Load("../images/lr.xpm");
+	W1Bmp5.Load("../images/ud.xpm");
+        assert(W1Bmp.GetStatus() == BitMapOkay);
+
+        W1Bmp.SetPosition(Position(0.25, 0.5));
+        W1Bmp2.SetPosition(Position(0, 0));
+        W1Bmp3.SetPosition(Position(0, 0));
+        W1Bmp4.SetPosition(Position(28.9,0));
+        W1Bmp5.SetPosition(Position(0, 19.4));
+        
+        W1Bmp2.Draw();
+        W1Bmp3.Draw();
+        W1Bmp4.Draw();
+        W1Bmp5.Draw();
+        W1Bmp.Draw();
+        W1.RenderText(Position(15,19.8),spaces(194),Yellow,Red);
+	if(loaded==0)
+	{	
+		int gamemap[NCountry];
+		int soldiers[NCountry];
+	        randomdist(gamemap,soldiers);
+		for(int i=0;i<NCountry;i++)
+	        {
+	                all[i].ownership=gamemap[i];
+	                all[i].nos = soldiers[i];
+		}
+		
+	}
+        PrintPhase();
+	ShowEndTurn();
+	ShowSaveGame();
+	ShowMainMenu();
+        refresh2();
+        PrintLeft("   You haven't selected any country   ");
+	PrintRein();
+        getclick();
+}
+d4 1
+d18 1
+a18 2
+		centers[i]=Position(x,y);
+		
+@
+
+
+1.24
+log
+@twentyfourth
+@
+text
+@d1 1
+a1 197
+#include<iostream>
+#include<string>
+#include<sstream>
+#include <assert.h>
+#include<math.h>
+#include<time.h>
+#include<fstream>
+#include "bitmap.h"
+#include "circle.h"
+#include<cstdlib>
+#include<cstdio>
+#include<vector>
+#include<ctype.h>
+using namespace std;
+int transcount=0;
+double const PI=3.1415926535897932;
+
+const double NDIV=75;
+const int NDOTS=226;
+Position showUpCentres[NDOTS];
+int counter=0;
+ifstream fcentres("../data/initialcentres.txt");
+Position first,second;
+int Neasy=200,Nmedium=175,Nhard=150;
+bool mid=false; 
+bool won=false;
+bool lost=false;
+string ent="";
+int en=0;
+bool mode=true;
+bool aimode=false;
+int prevfocus=1;
+void transfer(int i, int j, int transsol);
+int defaultKey(int keycode) ;
+bool isinside(Position p,int l);
+int trans(const Position& p);
+void transover();
+int getcountry(const Position &p);
+void loadingWindow();
+const int NCountry=43;
+int quitW3();
+int wsgQuit();
+string ls ="load";
+int loaded=0;
+int focus=4;//stores which window should be active i.e responsive to mouse clicks
+string strphase;
+int oldsold[NCountry];int reinf;
+bool working=false;
+void startup();
+int getNearestNeedy(int i,bool count[]);
+int count=1,c1=-1,c2=-1,turn=1;
+SimpleWindow W1("Invaders...", 40.0,40.0, Position(1.0, 1.0));
+SimpleWindow W3("Message Box", 12,6, Position(10, 10));
+SimpleWindow W4("Invaders...Startup", 23.8,18.5, Position(1.0, 1.0));
+SimpleWindow Wsg("Invaders...", 17.8,13.9, Position(1.0, 1.0));
+BitMap loadBmp(W4);
+BitMap stylishINV(W4);
+BitMap W1Bmp(W1);
+BitMap W3Bmp(W3);
+BitMap W3Bmp2(W3);
+BitMap W4Bmp(W4);
+BitMap W1Bmp2(W1);
+BitMap W1Bmp3(W1);
+BitMap W1Bmp4(W1);
+BitMap W1Bmp5(W1);
+BitMap back(Wsg);
+BitMap lg(Wsg);
+BitMap sg(Wsg);
+BitMap game1(Wsg);
+BitMap game2(Wsg);
+BitMap game3(Wsg);
+BitMap game4(Wsg);
+BitMap game5(Wsg);
+BitMap SG(W1);
+BitMap ET(W1);
+BitMap MM(W1);
+void createTriangle(color c,int c1,int c2);
+int f(const Position& p);
+void AI(void);
+void gameproceed();
+void createrectangle(double a[4],color cl1,color cl2);
+void fillup(double pt[4][4]);
+void refresh();
+void refresh2();
+int keypress(int keycode) 
+{
+	return 1;
+}
+int none()
+{
+	refresh();
+	return 1;
+}
+string spaces(int n);
+int reinforcement(int a);
+class message
+{
+	public :
+		string msg;
+		message()
+		{
+			msg="";
+		};
+		message(string msgstr)
+		{
+			msg=msgstr;
+		};
+		void split(vector<string> &z)
+		{
+			string s=msg;
+        		int i=-1,j=s.find("^");
+        		while (j<s.length())
+        		{
+        			z.push_back(s.substr(i+1,j-i-1));
+        			i=j;
+        			j=s.find("^",i+1);
+        			
+        		}
+        		z.push_back(s.substr(i+1,s.length()));
+        		for(i=0;i<z.size();i++)
+        		{
+        			W3.RenderText(Position(6,1.0 +((double)i)/1.7),z[i],Yellow,Red);
+        		}
+			W3.SetMouseClickCallback(f);
+			W3.RenderText(Position(0,0),"",Yellow,Red);
+			
+			z.clear();
+		}
+		void show()
+		{
+			if(mode==false)
+			return;
+			vector <string> z;
+			W3.Open();
+			assert(W3.GetStatus() == WindowOpen);
+			W3Bmp2.Load("../images/back.xpm");
+			assert(W3Bmp2.GetStatus() == BitMapOkay);
+        		W3Bmp2.SetPosition(Position(0, 0));
+        		W3Bmp2.Draw();
+			W3Bmp.Load("../images/okup.xpm");
+			assert(W3Bmp.GetStatus() == BitMapOkay);
+        		W3Bmp.SetPosition(Position(5.0, 3.9));
+        		W3Bmp.Draw();
+        		split(z);
+        		focus=3;
+        		W3.SetKeyPressCallback(defaultKey);
+        		W3.SetQuitCallback(quitW3);
+        		
+		};
+		void ShowOkCancel()
+		{
+			vector <string> z;
+			W3.Open();
+			assert(W3.GetStatus() == WindowOpen);
+			W3Bmp2.Load("../images/back.xpm");
+			assert(W3Bmp2.GetStatus() == BitMapOkay);
+        		W3Bmp2.SetPosition(Position(0, 0));
+        		W3Bmp2.Draw();
+			W3Bmp.Load("../images/ok1up.xpm");
+			assert(W3Bmp.GetStatus() == BitMapOkay);
+        		W3Bmp.SetPosition(Position(2.5, 3.9));
+        		W3Bmp.Draw();
+        		W3Bmp2.Load("../images/Cancelup.xpm");
+			assert(W3Bmp.GetStatus() == BitMapOkay);
+        		W3Bmp2.SetPosition(Position(6.5, 3.9));
+        		W3Bmp2.Draw();
+        		W3.SetQuitCallback(quitW3);
+        		split(z);
+        		focus=32;
+        		W3.SetKeyPressCallback(defaultKey);
+		}
+		void showenter()
+		{
+			show();
+			W3.SetQuitCallback(none);
+			W3.RenderText(Position(6.0,3.0),spaces(80),Yellow,Red);
+			W3.RenderLine(Position(0,2.7),Position(12,2.7),Black,0.05);
+			W3.RenderLine(Position(0,3.5),Position(12,3.5),Black,0.05);
+			return;
+		}
+};
+class country
+{
+public:
+	int idno;
+	int neigh[6];
+	int non;
+	int nos;
+	int ownership;
+	string name;
+};
+country all[NCountry];
+message showmsg;
+
+
+Position centers[NCountry];
+float diameters[NCountry];
+d353 1
+a353 1
+void war(int c1,int c2)
+d355 1
+a355 21
+	//if(turn==1)
+
+	refresh();
+	flush();
+	mode=false;
+	color cattacker=White,cdefender=Yellow;
+	
+	string strattacker="Player 1";
+	string strdefender="Computer";
+	if(all[c1].ownership==0)
+	{
+		strdefender="Player 1";
+		strattacker ="Computer";
+		cdefender=White;
+		cattacker=Yellow;
+	}
+	if(turn==1)
+     	createTriangle(Blue,c1,c2);
+     	else
+     	createTriangle(Green,c1,c2);
+     	if(all[c1].nos >=10 && all[c2].nos>=10)
+d395 26
+a420 1
+	} 
+d460 2
+a461 4
+		//all[c1].nos=a/2;
+		//all[c2].nos=a-a/2;
+		all[c1].nos=1;
+		all[c2].nos=a-1;
+d554 1
+a554 1
+			dist = fabs(i-j);
+d704 1
+a704 1
+			if(getNOppNeighbours(all[i].neigh[j])>all[all[i].neigh[j]].nos)
+d710 1
+a710 1
+			if(all[i].nos>all[all[i].neigh[j]].nos+4)
+d726 1
+a726 1
+				if(all[all[i].neigh[j]].ownership==1 && all[i].nos>=all[all[i].neigh[j]].nos)
+a778 3
+
+
+
+a836 1
+
+a848 1
+
+d878 3
+a880 4
+int f(const Position& p)
+{	
+	//cout<<focus<<endl;cout.flush();
+	if ((focus==5)&&(ls=="load"))
+d906 1
+a906 1
+	if ((focus==5)&&(ls=="save"))
+d943 19
+a961 1
+	if(focus==32)
+a962 2
+		if(W3Bmp.IsInside(p)==true)
+		{
+d964 30
+a993 26
+			W3Bmp.Load("../images/ok1p.xpm");
+			//assert(W3Bmp.GetStatus() == BitMapOkay);
+        		W3Bmp.SetPosition(Position(2.5, 3.9));
+        		W3Bmp.Draw();
+        		W3.RenderText(Position(0,0),"",Yellow,Red);
+        		usleep(100000);
+        		focus=4;
+        		startup();
+        		W3.Close();
+        		W1.Close();
+       			return 0;
+		}
+		if(W3Bmp2.IsInside(p)==true)
+		{
+			//W3Bmp.Erase();
+			W3Bmp2.Load("../images/Cancelp.xpm");
+			//assert(W3Bmp.GetStatus() == BitMapOkay);
+        		W3Bmp2.SetPosition(Position(6.5, 3.9));
+        		W3Bmp2.Draw();
+        		W3.RenderText(Position(0,0),"",Yellow,Red);
+        		usleep(100000);
+        		focus=prevfocus;
+        		prevfocus=1;
+       			W3.Close();
+       			return 0;
+		}
+d995 1
+a995 1
+	if (focus==3)
+d997 24
+a1020 1
+		if(MM.IsInside(p))
+d1023 7
+a1029 13
+			MM.Load("../images/MMp.xpm");
+        		MM.SetPosition(Position(19.2, 20.1));
+        		MM.Draw();
+        		flush();
+        		usleep(100000);
+        		MM.Load("../images/MMup.xpm");
+        		MM.SetPosition(Position(19.2, 20.1));
+        		MM.Draw();
+        		flush();
+        		prevfocus=1;
+			showmsg.msg=" Do you want to leave this game? ";
+			showmsg.ShowOkCancel();
+			return 1;
+d1031 1
+a1031 1
+		if(W3Bmp.IsInside(p)==true)
+d1033 3
+a1035 48
+			W3Bmp.Load("../images/okp.xpm");
+			assert(W3Bmp.GetStatus() == BitMapOkay);
+        		W3Bmp.SetPosition(Position(5.0, 3.9));
+        		W3Bmp.Draw();
+        		W3.RenderText(Position(0,0),"",Yellow,Red);
+        		usleep(100000);
+			
+			if(mid==true)
+			{
+				
+				W3.Close();
+				transfer(getcountry(first),getcountry(second),en);
+				refresh2();
+				mid=false;
+				en=0;
+				ent="";
+				if(transcount%2==0)
+				{
+					W1.SetMouseClickCallback(f);
+					transcount=0;
+					transover();
+				}
+				
+				return 0;
+			}
+			if(turn==1 && strphase=="Reinforcement Phase")
+			{
+				W3.Close();
+				focus=2;
+				return 0;
+			};
+			
+			if(showmsg.msg=="Thank You for Playing Invaders...")
+			{
+				ApiEnd();
+				return 0;
+			}
+			if(won || lost)
+			{
+				startup();
+				won =false;
+				lost = false;
+				W3Bmp.Erase();
+				W3.Close();
+				focus=4;
+				W1.Close();
+				return 0;
+			};
+d1038 2
+a1039 5
+			focus=1;
+			if(turn==0)
+			{
+				AI();
+			}
+d1041 7
+a1048 1
+		else
+d1051 6
+a1056 1
+	if(focus==2)
+d1058 18
+a1075 1
+		if(MM.IsInside(p))
+d1077 4
+a1080 13
+			MM.Load("../images/MMp.xpm");
+        		MM.SetPosition(Position(19.2, 20.1));
+        		MM.Draw();
+        		flush();
+        		usleep(50000);
+        		MM.Load("../images/MMup.xpm");
+        		MM.SetPosition(Position(19.2, 20.1));
+        		MM.Draw();
+        		flush();
+        		prevfocus=2;
+			showmsg.msg=" Do you want to leave this game? ";
+			showmsg.ShowOkCancel();
+			return 1;
+d1082 1
+a1082 1
+		if(reinf>0)
+d1084 1
+a1084 3
+			bool ans=false;
+			int reinfcountry;
+			for(int i=0;i<NCountry && ans==false;i++)
+d1086 11
+a1096 18
+				ans=isinside(p,i);
+				if(ans) { reinfcountry=i;};
+			}
+			if(ans==false)
+			{
+				PrintLeft(" You haven't selected any coutry. ");
+				return 0;
+			}
+			else if(all[reinfcountry].ownership!=1)
+			{
+				PrintLeft(all[reinfcountry].name+": This is not your country. ");
+				return 0;
+			}
+			else if(all[reinfcountry].nos>=oldsold[reinfcountry]+10)
+			{
+				PrintLeft("You cannot increase more than 10 soldiers in a country. ");
+			showmsg.msg=" Reinforcement Rule --You cannot ^increment more than 10 soldiers in a country.^Already added 10 soldiers to "+all[reinfcountry].name;
+			showmsg.show();
+d1101 12
+a1112 1
+				if(reinf>5)
+d1114 6
+a1119 11
+			               	highlight(reinfcountry);
+					all[reinfcountry].nos+=5;
+					reinf-=5;
+					usleep(600000);
+			                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Yellow,Red);
+					flush();
+					usleep(300000);
+					refresh2();
+					W1.RenderText(Position(22,19.8),spaces(101),Yellow,Red);
+					W1.RenderText(Position(21,19.8),"  No of reinforcement : User : "+itoa(reinf)+"   Computer : "+itoa(reinforcement(0)),Yellow,Red);
+					PrintLeft(" 5 soldiers added to "+all[reinfcountry].name);
+d1122 2
+a1123 1
+				else
+d1125 1
+a1125 28
+			                highlight(reinfcountry);
+					all[reinfcountry].nos+=1;
+					reinf--;
+					usleep(600000);
+			                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Yellow,Red);
+					flush();
+					usleep(300000);
+					refresh2();
+					W1.RenderText(Position(22,19.8),spaces(124),Yellow,Red);
+					PrintRein(reinf,reinforcement(0));
+					PrintLeft(" 1 soldier added to "+all[reinfcountry].name);
+					if(reinf==0 && uplayer()!=1)
+					{
+						showmsg.msg="Choose two countries one after^ the other to tranfer your troops^ from first country to the second.^(you are allowed only one transfer)";
+						ent="";
+						transcount=0;
+						showmsg.show();	
+						PrintLeft("choose countries for transfer of soldiers");
+						W1.SetMouseClickCallback(trans);
+						return 0;
+					}
+					int a=0,b=0;
+					if(reinf==0 && getMaxNCountry(a,b,0)==false)
+					{
+						transover();
+					}
+
+					return 0;
+d1127 1
+d1131 23
+a1153 54
+	
+	
+	if (focus==4)
+	{
+		double pt[4][4];
+        	fillup(pt);
+        	double x=p.GetXDistance();
+        	double y=p.GetYDistance();
+        	if(x>=pt[0][0] && x<=(pt[0][3]-.2) && y>=pt[0][1] && y<=(pt[0][2]-.2))
+        	{
+        	//play game
+        		createrectangle(pt[0],Blue,Black);
+        		W4.RenderText(Position(0,0),"",Yellow,Red);
+        		usleep(150000);
+        		createrectangle(pt[0],Yellow,Red);
+        		W4.RenderText(Position(0,0),"",Yellow,Red);
+        		usleep(150000);
+			gameproceed();
+			W4Bmp.Erase();
+			W4.Close();
+		}
+		if(x>=pt[1][0] && x<=(pt[1][3]-.2) && y>=pt[1][1] && y<=(pt[1][2]-.2))
+        	{
+		//how to play
+		}
+		if(x>=pt[2][0] && x<=(pt[2][3]-.2) && y>=pt[2][1] && y<=(pt[2][2]-.2))
+        	{
+		//load game
+        		createrectangle(pt[2],Blue,Black);
+        		W4.RenderText(Position(0,0),"",Yellow,Red);
+        		usleep(150000);
+        		createrectangle(pt[2],Yellow,Red);
+        		W4.RenderText(Position(0,0),"",Yellow,Red);
+        		usleep(150000);
+			ls="load";
+			showsave();
+			W4Bmp.Erase();
+			W4.Close();
+		}
+		if(x>=pt[3][0] && x<=(pt[3][3]-.2) && y>=pt[3][1] && y<=(pt[3][2]-.2))
+        	{
+		//quit
+			createrectangle(pt[3],Black,Yellow);
+        		W4.RenderText(Position(0,0),"",Yellow,Red);
+        		usleep(150000);
+        		createrectangle(pt[3],Black,Blue);
+        		W4.RenderText(Position(0,0),"",Yellow,Red);
+        		usleep(150000);
+			W4Bmp.Erase();
+			W4.Close();
+			showmsg.msg="Thank You for Playing Invaders...";
+			showmsg.show();
+		}
+		return 0;
+d1155 13
+a1167 19
+
+	
+	if(working)
+	return 0;
+	if(MM.IsInside(p))
+	{
+		MM.Load("../images/MMp.xpm");
+        	MM.SetPosition(Position(19.2, 20.1));
+        	MM.Draw();
+        	flush();
+        	usleep(100000);
+        	MM.Load("../images/MMup.xpm");
+        	MM.SetPosition(Position(19.2, 20.1));
+        	MM.Draw();
+        	flush();
+        	prevfocus=1;
+		showmsg.msg=" Do you want to leave this game? ";
+		showmsg.ShowOkCancel();
+		return 1;
+d1169 12
+a1180 34
+		
+	if(SG.IsInside(p))
+	{
+		ls="save";
+		PrintLeft(" Saving...");
+		SG.Load("../images/SGp.xpm");
+        	SG.SetPosition(Position(7.2, 20.1));
+        	SG.Draw();
+        	flush();
+        	usleep(100000);
+        	SG.Load("../images/SGup.xpm");
+        	SG.SetPosition(Position(7.2, 20.1));
+        	SG.Draw();
+        	flush();
+        	showsave();
+	}		
+	if(ET.IsInside(p))
+	{	
+		ET.Load("../images/ETp.xpm");
+        	ET.SetPosition(Position(13.2, 20.1));
+        	ET.Draw();
+        	flush();
+        	usleep(100000);
+        	ET.Load("../images/ETup.xpm");
+        	ET.SetPosition(Position(13.2, 20.1));
+        	ET.Draw();
+        	flush();
+		working=true;
+		PrintRein();
+		strphase="Reinforcement Phase";
+		PrintPhase();
+		refresh2();
+		showmsg.msg=" You have to click on the country to increment number of^ soldiers. Till the number of reinforcement becomes less^ than 5, 5 soldiers are added. After that only one^ soldier will get incremented at a click. Make ^the most helpful distribution of the soldiers you have.";
+		 //Include in How to play???
+d1182 5
+a1186 8
+		for(int i=0;i<NCountry;i++)
+		oldsold[i]=all[i].nos;
+		reinf=reinforcement(1);
+		PrintLeft(" Start selecting countries... ");
+
+		return 1;
+	};
+
+d1265 96
+d1362 4
+d1452 1
+a1452 2
+	//if(i%2==0)
+	return(((0.006*(xi-x)*(23.8-xi-x)*(i*i*sin(i*i)+1)/(NDIV-i))*sin(PI*x/xi)*sin(PI*(23.8-x)/xi))+yi);
+a1476 1
+		startup();
+d1491 1
+a1491 1
+       		CircleShape C(W4,Position(xco,yco),randomColor(),0.12);
+d1493 1
+d1495 1
+d1586 2
+a1587 16
+        for(int i=0;i<NCountry;i++)
+        {
+                if(all[i].ownership==0)
+                {
+                CircleShape C(W1,centers[i],Yellow,diameters[i]);
+                C.Draw();
+                W1.RenderText(centers[i],itoa(all[i].nos),Black,Yellow);
+                }
+                else
+                {
+                CircleShape C(W1,centers[i],White,diameters[i]);
+                C.Draw();
+                W1.RenderText(centers[i],itoa(all[i].nos),Black,White);
+                }
+        }
+        	PrintLeft("   You haven't selected any country   ");
+@
+
+
+1.23
+log
+@twentythird version
+@
+text
+@d196 2
+a197 3
+Position centers[NCountry]={Position(1.1, 3.2),Position (3., 3.3),Position (4.5, 3), Position (2.8, 4.65),Position (5.1, 4.9),Position (6.9, 4.9),Position (2.8, 6.3),Position (4.9, 6.8),Position (3.7, 8.3),Position (10.1, 1.7),Position (7.1, 11.1),Position (9, 13.4),Position (7.5, 14.3),Position (7.5, 16.6),Position (12.9, 10.2), Position (15.2, 9.3), Position (16.3, 11.1), Position (15.3, 13.1), Position (15.5, 15.8),Position (17.9, 15.4),Position (12.9, 2.7),Position (15.1, 3.7), Position (16.9, 4.9),Position (12.8, 5.4),Position (14.2, 5.7),Position (12.7, 7.3), Position (15.4, 6.8), Position (19.8, 4.6),Position (23.3, 4.8), Position (26.1, 3.7),Position (25.5, 5.5),Position (27.9, 4.1),Position (25.3, 7), Position (27, 8.2),Position (20.2, 7.3),Position (23.5, 7.9), Position (17.95, 9.9), Position (21.15, 9.8), Position (23.5, 10), Position (24.8, 12.6),Position (27.4, 13.5),Position (25.8, 16.2),Position (27.65, 16.7)};
+
+float diameters[NCountry]={1,0.9,0.9,1,1,1.2,1.2,1.2,1,1.5, 1,1.4,0.9,0.9,1.4,1.1,1.2,1,1.2,0.7, 0.8,1,1.4,0.8,0.6,0.7,0.8,1.1,1.4,0.8, 1,1,0.9,0.7,1.2,1.3,1.2,1.2,1,0.7,0.75,1.2,1.2};
+d424 2
+a425 2
+	else if(a==0 && reinf>(43-uplayer())*10)
+	return((43-uplayer())*10);
+a474 1
+	W3.RenderText(Position(6.0,3.0),ent,Yellow,Red);
+d476 2
+d592 20
+a693 2
+//if(all[c1].ownership==0)
+//HideEndTurn();
+d788 1
+a788 1
+		int country2=rand()%(43-uplayer()),j=0;
+d1790 2
+a1791 1
+	ifstream fn("../data/name.txt");
+d1798 5
+a1802 1
+		getline(fn,all[i].name,'\n');
+a1807 5
+	ofstream fj("../data/countrycircles.txt");
+	for(int i=0;i<NCountry;i++)
+	{
+		fj<<centers[i].GetXDistance()<<" "<<centers[i].GetYDistance()<<" "<<diameters[i]<<endl;
+	}
+@
+
+
+1.22
+log
+@twentysecond
+@
+text
+@d462 1
+a462 1
+			W3.RenderText(Position(6.0,3.0),ent,Yellow,Red);
+d1614 1
+a1614 1
+	double x=(counter/NDIV)*xi;
+d1616 1
+a1616 1
+	return(((0.0006*(xi-x)*(23.8-xi-x)*(i*i*sin(i*i)+1)/(NDIV-i))*sin(PI*x/xi)*sin(PI*(23.8-x)/xi))+yi);
+d1651 1
+d1654 3
+a1656 3
+       		xco=23.8*(NDIV-counter)/NDIV+counter*(showUpCentres[i].GetXDistance())/NDIV;
+		
+       		CircleShape C(W4,Position(xco,yco),randomColor(),0.15);
+d1785 5
+a1789 1
+
+@
+
+
+1.21
+log
+@twentyfirst
+@
+text
+@d16 7
+d39 1
+a39 9
+int nothing(const Position& p)
+{
+	return 0;
+}
+int nothing(int keycode)
+{
+	return 0;
+}
+
+d42 1
+d54 1
+a54 1
+SimpleWindow W4("Invaders...Startup", 23.8,18.1, Position(1.0, 1.0));
+d56 2
+a57 1
+
+d85 4
+a115 1
+        			//s=s.substr(j+1,s.length());
+d239 13
+a265 3
+	/*W1.RenderRectangle(Position(1,17.5), Position(3,18.5),Green, true);
+        W1.RenderRectangle(Position(1.1,17.6), Position(2.9,18.4),Yellow, true);
+       	W1.RenderText(Position(2,18),"End Turn",Red,Yellow);*/
+a290 5
+/*void HideEndTurn()
+{
+	W1.RenderRectangle(Position(1,17.5), Position(3,18.5),Black, true);
+	flush();
+}*/
+d320 3
+a322 2
+	W1.RenderText(Position(21.5,19.8),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Yellow,Red);
+	W1.RenderText(Position(0,19.8),"",Yellow,Red);
+a369 1
+	//usleep(16000000);
+d372 1
+d375 1
+a375 2
+{	//W1Bmp.Erase();
+	        //W1.RenderText(Position(15,0.2),"Attack Phase",Red,Black);
+d380 1
+a380 1
+{	//W1Bmp.Erase();
+a381 1
+	//W1Bmp.Draw();
+d384 1
+a384 3
+                //all[i].ownership=gamemap[i];
+                //all[i].nos = soldiers[i];
+                //cout<<i<<"-- player "<<gamemap[i]<<"-- soldiers :"<<soldiers[i]<<endl;
+a442 1
+	usleep(600000);
+d552 1
+a552 1
+	
+d568 1
+a568 1
+     	createTriangle(White,c1,c2);
+d570 22
+a591 1
+     	createTriangle(Yellow,c1,c2);
+d615 2
+a616 3
+		W1.RenderText(Position(0,19.8),"",Yellow,Red);
+		//usleep(300000);
+		//usleep(10000);
+d707 1
+a707 1
+	usleep(1000000);
+d713 1
+a713 1
+	usleep(1000000);
+d807 1
+d823 2
+d831 5
+d840 21
+a870 1
+	//HideEndTurn();
+d875 1
+a875 1
+		int sum=0;//,lj=0,ljn=all[all[i].neigh[0]].nos;
+d879 6
+a884 2
+			//if(all[all[i].neigh[j]].nos <= ljn)
+			//lj=j;
+d921 1
+d925 1
+a925 1
+	if(getMaxNCountry(co,ci,1) && all[co].nos>1)
+d936 1
+a936 1
+		usleep(600000);
+a939 6
+	/*for(int i=0;i<Ncountry;i++)
+	{
+		
+	}*/
+	//PrintLeft("   Reinforcement Phase is over   ");
+	//usleep(300000);
+d959 1
+a959 1
+	srand(((unsigned int)time(0)));
+d1008 1
+a1008 1
+        		 if(playsol>=Nhard)//replace Neasy eith Nhard for harder game....
+d1069 1
+a1069 1
+			loadgame("../data/savegame2.txt");
+d1089 6
+a1094 1
+		if(game1.IsInside(p))
+d1098 1
+a1098 1
+		if(game2.IsInside(p))
+d1102 1
+a1102 1
+		if(game3.IsInside(p))
+d1106 1
+a1106 1
+		if(game4.IsInside(p))
+d1110 1
+a1110 1
+		if(game5.IsInside(p))
+d1114 8
+a1121 5
+		Wsg.Close();
+		focus=1;
+		showmsg.msg=" Game Saved.  Continue playing...";
+		showmsg.show();
+		PrintLeft(" Continue...");
+a1176 1
+			//W3Bmp.Erase();
+d1178 1
+a1178 1
+			//assert(W3Bmp.GetStatus() == BitMapOkay);
+d1186 1
+a1186 1
+				W3.SetKeyPressCallback(nothing);
+d1193 1
+a1193 1
+				if(transcount==2)
+d1230 1
+a1230 1
+			AI();
+d1245 1
+a1245 1
+        		usleep(100000);
+d1285 1
+a1285 1
+			               highlight(reinfcountry);
+d1309 1
+a1309 1
+					W1.RenderText(Position(21,19.8),"  No of reinforcement : User : "+itoa(reinf)+"   Computer : "+itoa(reinforcement(0)),Yellow,Red);
+a1318 4
+						
+//						usleep(600000);
+//						AI();			
+						
+a1365 8
+
+			/*loaded=1;
+			ifstream fin("savegame.txt");
+			for(int i=0;i<NCountry;i++)
+			{
+				fin>>all[i].ownership;
+				fin>>all[i].nos;
+			}*/
+a1367 2
+				
+			//gameproceed();
+a1421 7
+		/*ofstream fout("savegame.txt");
+		for(int i=0;i<NCountry;i++)
+		{
+			fout<<all[i].ownership<<" "<<all[i].nos<<endl;
+		}*/
+
+		//fout.close();
+a1438 1
+		//showmsg.msg="Click on your country for reinforcements.";
+d1494 1
+a1494 1
+                ::count+=1;//cout<<c1<<endl;
+d1532 1
+a1564 1
+        //W4.SetMouseMoveCallback(W4mousemove);
+d1566 1
+d1581 1
+a1590 1
+int keypress(int keycode) {
+d1592 43
+a1634 7
+	//
+	// NOTE: if keycode is < 255, it's an ascii character, 
+	// else it is a special key, such as arrow key. 
+	// Even the shift, capslock and other such keys return a 
+	// non-ascii character.
+	//  
+	cout << keycode << " "; cout.flush();
+d1636 70
+a1705 1
+	return 1;
+a1735 1
+	        //int gamemap[i]=0 for comp and 1 for player occupying territory id no. i;
+a1749 1
+                //cout<<i<<"-- player "<<gamemap[i]<<"-- soldiers :"<<soldiers[i]<<endl;
+a1763 1
+	W1.SetKeyPressCallback(keypress);
+a1765 1
+	//cout<<endl<<endl;
+d1769 1
+a1771 3
+         /*string s4="^ hello ^ 6789  7978^";
+        cout<<s4.find("^")<<endl<<s4.find("-")<<endl<<s4.find("^",8)<<endl;
+        cout.flush();*/
+a1777 2
+		
+		//fn>>j;
+d1780 5
+a1784 1
+	startup();
+d1793 1
+@
+
+
+1.20
+log
+@twentieth
+@
+text
+@d17 1
+d40 1
+d50 1
+d84 5
+d132 1
+a132 1
+			W3Bmp2.Load("back.xpm");
+d136 1
+a136 1
+			W3Bmp.Load("okup.xpm");
+d151 1
+a151 1
+			W3Bmp2.Load("back.xpm");
+d155 1
+a155 1
+			W3Bmp.Load("ok1up.xpm");
+d159 1
+a159 1
+        		W3Bmp2.Load("Cancelup.xpm");
+d171 1
+d252 1
+a252 1
+       	ET.Load("ETup.xpm");
+d261 1
+a261 1
+       	SG.Load("SGup.xpm");
+d270 1
+a270 1
+       	MM.Load("MMup.xpm");
+d319 1
+a319 1
+	back.Load("back.xpm");
+d332 1
+a332 1
+	game1.Load("SG1.xpm");
+d335 1
+a335 1
+	game2.Load("SG2.xpm");
+d338 1
+a338 1
+	game3.Load("SG3.xpm");
+d341 1
+a341 1
+	game4.Load("SG4.xpm");
+d344 1
+a344 1
+	game5.Load("SG5.xpm");
+d349 1
+a349 1
+		lg.Load("loadgame.xpm");
+d355 1
+a355 1
+		sg.Load("savegame.xpm");
+d417 4
+d511 1
+a511 1
+	createTriangle(Blue,a,b);
+d562 4
+a565 1
+     	createTriangle(Blue,c1,c2);
+d676 38
+a713 1
+
+d723 5
+a727 15
+		CircleShape C2(W1,centers[country1],Red,diameters[country1]);
+		C2.Draw();
+		W1.RenderText(centers[country1],itoa(all[country1].nos),Black,Red);
+		W1.RenderText(Position(0,19.8)," ",Black,Yellow);
+		usleep(1000000);
+		all[country1].nos+=10;
+		CircleShape C3(W1,centers[country1],Red,diameters[country1]);
+		C3.Draw();
+		W1.RenderText(centers[country1],itoa(all[country1].nos),Black,Red);
+		W1.RenderText(Position(0,19.8)," ",Black,Yellow);
+		usleep(1000000);
+		refresh2();
+		count[country1]=false;
+		reinf-=10;
+		PrintRein(reinforcement(1),reinf);
+d729 1
+a729 1
+	for(int i=0;i<NCountry;i++)
+d731 3
+a733 1
+		if(all[i].ownership==0 && count[i]==true)
+d735 3
+a737 4
+			all[i].nos+=reinf;
+			reinf=0;
+			PrintRein(reinforcement(1),0);
+			break;
+d739 3
+d745 1
+d750 4
+a753 2
+				all[i].nos+=reinf;
+				reinf=0;
+d755 1
+d770 37
+d865 17
+d954 1
+a954 1
+        		 if(compsol>=200)
+d956 1
+a956 1
+        		 if(playsol>=200)
+d1013 1
+a1013 1
+			loadgame("savegame1.txt");
+d1017 1
+a1017 1
+			loadgame("savegame2.txt");
+d1021 1
+a1021 1
+			loadgame("savegame3.txt");
+d1025 1
+a1025 1
+			loadgame("savegame4.txt");
+d1029 1
+a1029 1
+			loadgame("savegame5.txt");
+d1039 1
+a1039 1
+			savegame("savegame1.txt");
+d1043 1
+a1043 1
+			savegame("savegame2.txt");
+d1047 1
+a1047 1
+			savegame("savegame3.txt");
+d1051 1
+a1051 1
+			savegame("savegame4.txt");
+d1055 1
+a1055 1
+			savegame("savegame5.txt");
+d1069 1
+a1069 1
+			W3Bmp.Load("ok1p.xpm");
+d1073 1
+a1073 1
+        		W3.RenderText(Position(0,0)," ",Yellow,Red);
+d1084 1
+a1084 1
+			W3Bmp2.Load("Cancelp.xpm");
+d1088 1
+a1088 1
+        		W3.RenderText(Position(0,0)," ",Yellow,Red);
+d1101 1
+a1101 1
+			MM.Load("MMp.xpm");
+d1106 1
+a1106 1
+        		MM.Load("MMup.xpm");
+d1118 1
+a1118 1
+			W3Bmp.Load("okp.xpm");
+d1122 1
+a1122 1
+        		W3.RenderText(Position(0,0)," ",Yellow,Red);
+d1182 1
+a1182 1
+			MM.Load("MMp.xpm");
+d1187 1
+a1187 1
+        		MM.Load("MMup.xpm");
+d1266 2
+a1267 1
+					if(reinf==0 && uplayer()==1)
+d1289 1
+a1289 1
+        		W4.RenderText(Position(0,0)," ",Yellow,Red);
+d1292 1
+a1292 1
+        		W4.RenderText(Position(0,0)," ",Yellow,Red);
+d1306 1
+a1306 1
+        		W4.RenderText(Position(0,0)," ",Yellow,Red);
+d1309 1
+a1309 1
+        		W4.RenderText(Position(0,0)," ",Yellow,Red);
+d1330 1
+a1330 1
+        		W4.RenderText(Position(0,0)," ",Yellow,Red);
+d1333 1
+a1333 1
+        		W4.RenderText(Position(0,0)," ",Yellow,Red);
+d1348 1
+a1348 1
+		MM.Load("MMp.xpm");
+d1353 1
+a1353 1
+        	MM.Load("MMup.xpm");
+d1367 1
+a1367 1
+		SG.Load("SGp.xpm");
+d1372 1
+a1372 1
+        	SG.Load("SGup.xpm");
+d1387 1
+a1387 1
+		ET.Load("ETp.xpm");
+d1392 1
+a1392 1
+        	ET.Load("ETup.xpm");
+d1529 1
+a1529 1
+        W4Bmp.Load("31.xpm");
+d1570 5
+a1574 5
+	W1Bmp.Load("World.xpm");
+	W1Bmp2.Load("lr.xpm");
+	W1Bmp3.Load("ud.xpm");
+	W1Bmp4.Load("lr.xpm");
+	W1Bmp5.Load("ud.xpm");
+d1630 2
+a1631 2
+        ifstream fin("neighbour.txt");
+	ifstream fn("name.txt");
+a1644 2
+
+        
+d1646 1
+a1646 4
+        
+        
+    
+         return 0;
+@
+
+
+1.19
+log
+@nineteenth
+@
+text
+@d18 2
+d26 1
+d40 1
+d134 2
+d155 1
+d158 1
+d163 1
+a163 1
+			W3.RenderText(Position(6.0,3.0),spaces(48),Yellow,Red);
+d226 12
+d285 2
+a286 2
+	W1.RenderText(Position(0,19.8),      "                                                                                                            ",Yellow,Red);
+	W1.RenderText(Position(5.5,19.8),str,Yellow,Red);
+d294 1
+a294 1
+	W1.RenderText(Position(22,19.8),"                                                                                          ",Yellow,Red);
+d301 1
+a301 1
+	W1.RenderText(Position(22,19.8),"                                                                                          ",Yellow,Red);
+d421 1
+d434 6
+a439 1
+	W3.RenderText(Position(6.0,3.0),spaces(48),Yellow,Red);
+d442 5
+a452 1
+		return 1;
+d581 1
+a581 1
+		PrintLeft("Invasion failed. Territory retained by "+strdefender);
+d597 1
+a597 1
+          		{
+d599 6
+d607 1
+a607 1
+          		}
+d609 2
+a610 1
+          		{
+d612 6
+a617 1
+			showmsg.show();
+d619 2
+a620 2
+          		}       
+		PrintLeft("Invasion successful. Territory captured by "+ strattacker);
+d721 4
+d743 1
+d777 4
+d789 1
+d791 1
+d1022 1
+d1035 1
+a1035 1
+				//W3.SetKeyPressCallback(nothing);
+d1044 1
+a1044 2
+			W3Bmp.Erase();
+			W3.Close();
+d1050 1
+a1050 1
+			if(showmsg.msg=="   YOU   WIN  !!!" || showmsg.msg=="   YOU   LOSE  !!!")
+d1052 7
+a1058 1
+				ApiEnd();
+d1061 2
+d1129 1
+a1129 1
+					W1.RenderText(Position(22,19.8), "                                                                                                     ",Yellow,Red);
+d1144 1
+a1144 1
+					W1.RenderText(Position(22,19.8),"                                                                                                                            ",Yellow,Red);
+d1153 1
+d1437 9
+a1453 1
+	
+d1482 1
+a1482 1
+        W1.RenderText(Position(15,19.8),"                                                                                                                                                                                                  ",Yellow,Red);
+d1551 2
+@
+
+
+1.18
+log
+@eighteenth
+@
+text
+@a43 1
+int uplayer=22;
+d69 1
+d77 1
+d155 3
+a157 1
+			focus=3;
+d178 10
+a187 1
+
+d201 1
+a201 1
+	W1.RenderText(Position(15,0.2),"                       ",Yellow,Black);
+d253 10
+d412 2
+a413 1
+
+d419 5
+d428 1
+a428 1
+	W3.RenderText(Position(5.0,2.8),ent,Yellow,Red);
+d433 7
+a439 1
+	if(getcountry(p)==100 || all[getcountry(p)].ownership==0)
+a440 2
+	
+	
+d446 1
+a446 1
+		return 0;
+d449 16
+a464 1
+	int a=getcountry(first);	
+d466 1
+a466 1
+	int b=getcountry(second);
+d468 4
+d480 1
+a480 1
+	showmsg.msg="Enter number of soldiers to be tranferred^ from " + all[a].name +" to "+all[b].name +". (Result will be ^taken modulo number of soldiers in "+all[a].name+")";
+d486 15
+a500 1
+
+d509 1
+a509 1
+	Position points[3];
+d519 1
+a519 11
+     	points[0]=centers[c2];
+      	double x1=centers[c1].GetXDistance();
+      	double y1=centers[c1].GetYDistance();
+       	double x2=centers[c2].GetXDistance();
+       	double y2=centers[c2].GetYDistance();
+      	double d= sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+       	double xf=(diameters[c1]/2)*(y2-y1)/d;
+       	double yf=(diameters[c1]/2)*(x2-x1)/d;
+       	points[1]=centers[c1]+Position(xf,-1*yf);
+       	points[2]=centers[c1]+Position(-1*xf,yf);
+	W1.RenderPolygon(points, 3, Blue, false);
+d566 1
+a566 9
+                if(turn==1)
+                {
+                	uplayer++;
+                }
+                else 
+                {
+                	uplayer--;
+                }
+          	if (uplayer==NCountry)
+d572 1
+a572 1
+          	if (uplayer==0)
+d594 1
+a594 1
+		cout<<turn<<"\t"<<all[c1].name<<"\t"<<all[c2].name<<"\t"<<uplayer<<endl;
+a830 1
+		fin>>uplayer;
+a841 1
+		fout<<uplayer<<endl;
+d1086 1
+a1086 1
+					if(reinf==0)
+d1099 4
+d1424 1
+a1424 1
+		uplayer=22;
+@
+
+
+1.17
+log
+@seventeenth
+@
+text
+@d10 2
+d15 5
+d23 13
+d90 1
+a90 2
+		//void split
+		void show()
+d92 1
+a92 14
+			if(mode==false)
+			return;
+			vector <string> z;
+			W3.Open();
+			assert(W3.GetStatus() == WindowOpen);
+			W3Bmp2.Load("back.xpm");
+			assert(W3Bmp2.GetStatus() == BitMapOkay);
+        		W3Bmp2.SetPosition(Position(0, 0));
+        		W3Bmp2.Draw();
+			W3Bmp.Load("okup.xpm");
+			assert(W3Bmp.GetStatus() == BitMapOkay);
+        		W3Bmp.SetPosition(Position(5.0, 3.9));
+        		W3Bmp.Draw();
+        		string s=msg;
+d109 1
+a109 1
+			focus=3;
+d111 19
+d148 2
+a149 19
+        		string s=msg;
+        		int i=-1,j=s.find("^");
+        		while (j<s.length())
+        		{
+        			z.push_back(s.substr(i+1,j-i-1));
+        			i=j;
+        			//s=s.substr(j+1,s.length());
+        			j=s.find("^",i+1);
+        			
+        		}
+        		z.push_back(s.substr(i+1,s.length()));
+        		for(i=0;i<z.size();i++)
+        		{
+        			W3.RenderText(Position(6,1.0 +((double)i)/1.7),z[i],Yellow,Red);
+        		}
+			W3.SetMouseClickCallback(f);
+			W3.RenderText(Position(0,0),"",Yellow,Red);
+			focus=32;
+			z.clear();
+d151 1
+a151 1
+		/*void showquick()
+d153 4
+a156 25
+			vector <string> z;
+			W3.Open();
+			assert(W3.GetStatus() == WindowOpen);
+			W3Bmp2.Load("back.xpm");
+			assert(W3Bmp2.GetStatus() == BitMapOkay);
+        		string s=msg;
+        		int i=-1,j=s.find("^");
+        		while (j<s.length())
+        		{
+        			z.push_back(s.substr(i+1,j-i-1));
+        			i=j;
+        			//s=s.substr(j+1,s.length());
+        			j=s.find("^",i+1);
+        			
+        		}
+        		z.push_back(s.substr(i+1,s.length()));
+        		for(i=0;i<z.size();i++)
+        		{
+        			W3.RenderText(Position(6,1.0 +((double)i)/1.7),z[i],Yellow,Red);
+        		}
+			//W3.SetMouseClickCallback(f);
+			//W3.RenderText(Position(0,0),"",Yellow,Red);
+			focus+=100;
+			z.clear();
+		}*/
+d175 1
+d193 13
+d369 67
+d437 1
+a437 1
+{	
+d439 3
+d512 1
+a512 1
+                	{
+d514 5
+a518 2
+                	}
+                else {	uplayer--;}
+d547 1
+d624 2
+a625 1
+	usleep(300000);
+a627 1
+	refresh();
+d650 4
+a653 1
+				AI();
+d675 1
+d682 1
+d758 14
+d782 1
+d784 1
+d796 1
+d921 18
+a944 1
+			
+a959 2
+			usleep(100000);
+			refresh();
+d1015 1
+a1015 4
+			                CircleShape C(W1,centers[reinfcountry],Red,diameters[reinfcountry]);
+			                C.Draw();
+			                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Yellow,Red);
+					flush();
+d1030 1
+a1030 4
+			                CircleShape C(W1,centers[reinfcountry],Red,diameters[reinfcountry]);
+			                C.Draw();
+			                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Yellow,Red);
+					flush();
+d1043 6
+a1048 7
+						showmsg.msg="Reinforcement phase is over.^Now its Computer's turn.^Defense Phase Begins";
+						showmsg.show();
+						usleep(600000);
+						refresh2();
+						PrintRein();
+						PrintLeft("   Reinforcement Phase is over   ");
+						turn=0;
+d1197 2
+a1198 8
+        for(int i=0;i<NCountry;i++)
+        {
+                if(isinside(p,i)==true)
+                {
+                        c=i;break;
+                }
+        }
+
+d1242 1
+a1242 3
+                CircleShape C(W1,centers[c1],Red,diameters[c1]);
+                C.Draw();
+                W1.RenderText(centers[c1],itoa(all[c1].nos),Yellow,Red);
+d1258 1
+a1258 2
+             		   ::count=3;//cout<<c2<<endl;
+           	    	 //W1.RenderText(Position(5.5,19.8),"  Attacking country "+itoa(c2)+" from country "+itoa(c1)+"   ",Black,Yellow);
+a1259 1
+           	    	 
+a1260 1
+//			usleep(1000000);
+d1375 1
+@
+
+
+1.16
+log
+@sixteenth
+@
+text
+@d2 1
+d11 1
+d13 3
+d17 1
+d23 1
+d29 2
+d39 8
+d49 1
+d70 1
+d73 2
+a74 1
+			
+d104 1
+a104 1
+			
+d106 64
+d226 9
+d263 49
+d369 4
+a372 1
+{	color cattacker=White,cdefender=Yellow;
+d401 1
+a401 1
+int a=all[c1].nos,b=all[c2].nos;
+d418 2
+a419 1
+		usleep(300000);
+d433 5
+a437 1
+		all[c2].ownership=all[c1].ownership;all[c1].nos=a/2;all[c2].nos=a-a/2;
+d472 1
+a472 1
+		
+d546 9
+a554 1
+
+d562 1
+a562 1
+	for(int i=0;i<43;i++)
+d572 6
+d586 5
+a590 6
+					usleep(300000);
+					war(i,all[i].neigh[j]);
+					usleep(300000);
+					refresh();
+					//HideEndTurn();
+					//usleep(300000);
+d603 2
+a604 2
+	PrintLeft("   Reinforcement Phase is over   ");
+	usleep(300000);
+d611 2
+d685 21
+a705 1
+
+d708 88
+d798 17
+a847 1
+			refresh();
+d857 16
+d955 2
+d966 9
+a974 9
+        	createrectangle(pt[0],Blue,Black);
+        	W4.RenderText(Position(0,0)," ",Yellow,Red);
+        	usleep(150000);
+        	createrectangle(pt[0],Yellow,Red);
+        	W4.RenderText(Position(0,0)," ",Yellow,Red);
+        	usleep(150000);
+		gameproceed();
+		W4Bmp.Erase();
+		W4.Close();
+d983 16
+a998 14
+        	createrectangle(pt[2],Blue,Black);
+        	W4.RenderText(Position(0,0)," ",Yellow,Red);
+        	usleep(150000);
+        	createrectangle(pt[2],Yellow,Red);
+        	W4.RenderText(Position(0,0)," ",Yellow,Red);
+        	usleep(150000);
+
+		loaded=1;
+		ifstream fin("savegame.txt");
+		for(int i=0;i<NCountry;i++)
+		{
+			fin>>all[i].ownership;
+			fin>>all[i].nos;
+		}
+d1000 3
+a1002 3
+		gameproceed();
+		W4Bmp.Erase();
+		W4.Close();
+d1007 10
+a1016 10
+		createrectangle(pt[3],Black,Yellow);
+        	W4.RenderText(Position(0,0)," ",Yellow,Red);
+        	usleep(150000);
+        	createrectangle(pt[3],Black,Blue);
+        	W4.RenderText(Position(0,0)," ",Yellow,Red);
+        	usleep(150000);
+		W4Bmp.Erase();
+		W4.Close();
+		showmsg.msg="Thank You for Playing Invaders...";
+		showmsg.show();
+d1020 1
+d1024 17
+d1043 1
+d1054 2
+a1055 1
+		ofstream fout("savegame.txt");
+d1059 3
+a1061 5
+		}
+		showmsg.msg=" Game Saved.  Continue playing...";
+		showmsg.show();
+		PrintLeft(" Continue...");
+		fout.close();
+d1081 1
+d1087 1
+a1087 9
+		/*Reinforce.Open();
+		assert(Reinforce.GetStatus()==WindowOpen);
+	       Reinforce.SetMouseClickCallback(reinfclick1);
+		Reinforce.RenderText(Position(6.5,0.2)," You have to click on the country to increment no of soldiers.",Red,Yellow);
+		Reinforce.RenderText(Position(6.5,0.7)," Till the no of reinforcement becomes 5, 5 soldiers are added.",Red,Yellow);
+		Reinforce.RenderText(Position(6.5,1.2)," After  that only one soldier will get  incremented  at  a  click.",Red,Yellow);
+		Reinforce.RenderText(Position(6.5,1.7)," Make the most helpful distribution of the soldiers you have.",Red,Yellow);
+		Reinforce.RenderRectangle(Position(5.5,2.5),Position(7.5,3.5),Blue,true);
+		Reinforce.RenderText(Position(6.5,3)," OK ",Black,Blue);*/ //Include in How to play???
+d1214 1
+d1232 13
+d1247 1
+d1285 1
+d1303 1
+a1303 1
+//        W1.SetKeyPressCallback(keypress);
+@
+
+
+1.15
+log
+@fifteenth
+@
+text
+@d30 1
+d133 9
+d714 22
+a735 1
+	
+d949 1
+@
+
+
+1.14
+log
+@fourteenth
+@
+text
+@d15 1
+a15 1
+int oldsold[43];int reinf;
+d94 1
+d96 1
+a96 1
+country all[43];
+d100 1
+a100 1
+Position centers[43]={Position(1.1, 3.2),Position (3., 3.3),Position (4.5, 3), Position (2.8, 4.65),Position (5.1, 4.9),Position (6.9, 4.9),Position (2.8, 6.3),Position (4.9, 6.8),Position (3.7, 8.3),Position (10.1, 1.7),Position (7.1, 11.1),Position (9, 13.4),Position (7.5, 14.3),Position (7.5, 16.6),Position (12.9, 10.2), Position (15.2, 9.3), Position (16.3, 11.1), Position (15.3, 13.1), Position (15.5, 15.8),Position (17.9, 15.4),Position (12.9, 2.7),Position (15.1, 3.7), Position (16.9, 4.9),Position (12.8, 5.4),Position (14.2, 5.7),Position (12.7, 7.3), Position (15.4, 6.8), Position (19.8, 4.6),Position (23.3, 4.8), Position (26.1, 3.7),Position (25.5, 5.5),Position (27.9, 4.1),Position (25.3, 7), Position (27, 8.2),Position (20.2, 7.3),Position (23.5, 7.9), Position (17.95, 9.9), Position (21.15, 9.8), Position (23.5, 10), Position (24.8, 12.6),Position (27.4, 13.5),Position (25.8, 16.2),Position (27.65, 16.7)};
+d102 1
+a102 1
+float diameters[43]={1,0.9,0.9,1,1,1.2,1.2,1.2,1,1.5, 1,1.4,0.9,0.9,1.4,1.1,1.2,1,1.2,0.7, 0.8,1,1.4,0.8,0.6,0.7,0.8,1.1,1.4,0.8, 1,1,0.9,0.7,1.2,1.3,1.2,1.2,1,0.7,0.75,1.2,1.2};
+d139 1
+a139 1
+	W1.RenderText(Position(0,19.8), "                                                                                               ",Yellow,Red);
+a152 1
+
+a159 1
+
+d170 1
+a170 1
+	for(int i=0;i<43;i++)
+d197 1
+a197 1
+	for(int i=0;i<43;i++)
+d201 1
+a201 1
+	for(int i=0;i<43;i++)
+d270 1
+a270 1
+		showmsg.msg="Invasion failed. Territory retained by "+strdefender;
+d285 1
+a285 1
+          	if (uplayer==43)
+d298 1
+a298 1
+		showmsg.msg="Invasion successful. Territory captured by "+ strattacker;
+d445 1
+a445 1
+void randomdist(int b[43],int c[43])
+d452 2
+a453 2
+        int a[43][2];
+        for(int i=0;i<43;i++)
+d461 1
+a461 1
+        for(int i=43;i>=1;i--)
+d477 1
+a477 1
+        for(int i=0;i<43;i++)
+d483 1
+a483 1
+                int i=rand()%43;
+d562 1
+a562 1
+			for(int i=0;i<43 && ans==false;i++)
+d574 1
+a574 1
+				PrintLeft(" This is not your country. ");
+d579 2
+a580 2
+				PrintLeft(" You cannot increase more than 10 soldiers in a country. ");
+			showmsg.msg=" Reinforcement Rule --You cannot ^increment more than 10 soldiers in a country. ";
+d601 1
+a601 1
+					PrintLeft(" 5 soldiers added to the selected country.");
+d619 1
+a619 1
+					PrintLeft(" 1 soldier added to the selected country.");
+d675 1
+a675 1
+		for(int i=0;i<43;i++)
+d694 2
+a695 2
+//		W4Bmp.Erase();
+//		W4.Close();
+d724 1
+a724 1
+		for(int i=0;i<43;i++)
+d741 1
+a741 1
+        for(int i=0;i<43;i++)
+d775 1
+a775 1
+			PrintLeft("   Sorry, this is not your country    ");
+d780 1
+a780 1
+			PrintLeft(" There is no neighbouring country of opponent ");
+d785 1
+a785 1
+			PrintLeft("    One soldier cannot attack   ");
+d791 1
+a791 1
+	PrintLeft("       Selected country IdNo :"+itoa(c1)+"    ");
+d801 1
+a801 1
+	PrintLeft(" Sorry,this is not opponent's country ");
+d822 1
+a822 1
+	PrintLeft("Sorry,this is not neighbouring country");
+d906 2
+a907 2
+		int gamemap[43];
+		int soldiers[43];
+d910 1
+a910 1
+		for(int i=0;i<43;i++)
+d918 1
+a918 1
+        for(int i=0;i<43;i++)
+d942 2
+a943 2
+         ifstream fin("neighbour.txt");
+
+d947 1
+a947 1
+	for(int i=0;i<43;i++)
+d950 2
+a951 1
+		for(int j=0;j<all[i].non;j++)
+d953 3
+a968 4
+	if(W3.GetStatus()==WindowOpen)
+		W3.Close();
+	if(W4.GetStatus()==WindowOpen)
+		W4.Close();
+@
+
+
+1.13
+log
+@thirteenth
+@
+text
+@d11 2
+a12 1
+
+d26 5
+d78 1
+a78 1
+        			W3.RenderText(Position(6,1.0 +((double)i)/1.7),z[i],Blue,Red);
+d81 1
+a81 1
+			W3.RenderText(Position(0,0),"",Blue,Red);
+d110 1
+a110 1
+	W1.RenderText(Position(0,20.5),"",Black,Yellow);
+d121 1
+a121 1
+	W1.RenderRectangle(Position(1,17.5), Position(3,18.5),Green, true);
+d123 6
+a128 1
+       	W1.RenderText(Position(2,18),"End Turn",Red,Yellow);
+d131 1
+a131 1
+void HideEndTurn()
+d135 1
+a135 1
+}
+d138 3
+a140 3
+	W1.RenderText(Position(0,20.5), "                                                                                                         ",Black,Yellow);
+	W1.RenderText(Position(5.5,20.5),str,Black,Yellow);
+	W1.RenderText(Position(0,20.5),"",Black,Yellow);
+d147 3
+a149 3
+	W1.RenderText(Position(22,20.5),"                                                                                                                            ",Black,Yellow);
+	W1.RenderText(Position(21.5,20.5),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+	W1.RenderText(Position(0,20.5),"",Black,Yellow);
+d152 9
+d192 1
+a192 1
+        	ShowEndTurn();
+d244 1
+a244 1
+	W1.RenderText(Position(0,20.5)," ",Black,Yellow);
+d263 1
+a263 1
+		W1.RenderText(Position(0,20.5)," ",Black,Yellow);
+a278 3
+		PrintLeft("Invasion successful. Territory captured by"+ strattacker);
+		showmsg.msg="Invasion successful. Territory captured by"+ strattacker;
+		showmsg.show();
+d290 1
+d296 1
+d298 3
+d309 1
+a309 2
+		W1.RenderText(Position(23.0,20.5),"                                                                                                     ",Black,Yellow);
+	PrintRein();
+d311 2
+a312 2
+if(all[c1].ownership==0)
+HideEndTurn();
+d316 1
+a316 1
+void AI(void)
+d318 2
+a319 2
+	//float ratio=0;
+	/*do
+d321 1
+a321 3
+	for(int i=0;i<43;i++)
+	{
+		if(all[i].ownership!=0)
+d323 7
+a329 3
+		int sum=0;
+		int j;
+		for(j=0;j<all[i].non;j++)
+d331 2
+a332 3
+			if(all[all[i].neigh[j]].ownership!=1)
+				continue;
+			sum+=all[all[i].neigh[j]].nos;
+d334 32
+a365 1
+		if(((float)all[i].nos)/sum>ratio)
+d367 4
+a370 2
+			c1=i;c2=all[i].neigh[j];
+			ratio=((float)all[i].nos)/sum;
+d373 11
+a383 1
+	war(c1,c2);
+d385 5
+a389 3
+	while(ratio>=0.5);
+	*/
+	//refresh();
+d394 1
+a394 1
+	HideEndTurn();
+d396 2
+a397 1
+	{	if(all[i].ownership==1 || all[i].nos==1)
+d409 12
+a420 11
+		for(int j=0;j<all[i].non;j++)
+		{	if(all[all[i].neigh[j]].ownership==1 && all[i].nos>=all[all[i].neigh[j]].nos)
+			{
+			usleep(300000);
+			war(i,all[i].neigh[j]);
+			usleep(300000);
+			refresh();
+			HideEndTurn();
+			
+			//usleep(300000);
+			return;
+a422 1
+		}
+d427 3
+a429 52
+		int r1=reinforcement(1);
+		int r2=reinforcement(0);
+		PrintRein();
+		refresh2();
+		int reinf=reinforcement(turn);
+		while(reinf>5)
+		{
+			int a=rand()%43;
+			if(all[a].ownership!=turn)
+				continue;
+			int b=rand()%5+1;
+			CircleShape C2(W1,centers[a],Red,diameters[a]);
+			C2.Draw();
+		W1.RenderText(centers[a],itoa(all[a].nos),Black,Red);
+		W1.RenderText(Position(0,20.5)," ",Black,Yellow);
+			usleep(1000000);
+			all[a].nos+=b;
+			reinf-=b;
+			if (turn==1)
+			{
+				r1-=b;
+			}
+			else
+			{
+				r2-=b;
+			}
+				PrintRein();
+		/*CircleShape C1(W1,centers[a],White,diameters[a]);
+		C1.Draw();
+		W1.RenderText(centers[a],itoa(all[a].nos),Black,White);
+		W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);*/
+		refresh2();
+		PrintLeft("   Reinforcement is going on...   ");
+		W1.RenderText(Position(0,20.5)," ",Black,Yellow);
+		}
+			if (turn==1)
+			{
+				r1=0;
+			}
+			else
+			{
+				r2=0;
+			}
+		PrintRein();
+		while(reinf>0)
+		{
+		int rem=rand()%43;
+		if(all[rem].ownership!=turn)
+			continue;
+		all[rem].nos+=reinf;
+		reinf=0;
+		}
+d431 3
+a433 6
+		PrintLeft("   Reinforcement Phase is over   ");
+		
+		turn=0;
+		usleep(300000);
+
+		working=false;
+a436 1
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d440 1
+a440 1
+       ShowEndTurn();
+d523 1
+a523 1
+        		W3.RenderText(Position(0,0)," ",Blue,Red);
+d532 1
+a532 1
+			
+d534 10
+d591 1
+a591 1
+			                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Blue,Red);
+d596 1
+a596 1
+			                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Blue,Red);
+d600 2
+a601 2
+					W1.RenderText(Position(22,20.5), "                                                                                                                            ",Black,Yellow);
+					W1.RenderText(Position(21,20.5),"  No of reinforcement : User : "+itoa(reinf)+"   Computer : "+itoa(reinforcement(0)),Black,Yellow);
+d609 1
+a609 1
+			                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Blue,Red);
+d614 1
+a614 1
+			                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Blue,Red);
+d618 2
+a619 2
+					W1.RenderText(Position(22,20.5),"                                                                                                                            ",Black,Yellow);
+					W1.RenderText(Position(21,20.5),"  No of reinforcement : User : "+itoa(reinf)+"   Computer : "+itoa(reinforcement(0)),Black,Yellow);
+d623 1
+a623 1
+						showmsg.msg="Reinforcement phase is over.";
+a625 1
+					        W1.SetMouseClickCallback(f);
+d651 1
+a651 1
+        	W4.RenderText(Position(0,0)," ",Blue,Red);
+d653 2
+a654 2
+        	createrectangle(pt[0],Blue,Red);
+        	W4.RenderText(Position(0,0)," ",Blue,Red);
+d667 18
+d690 1
+a690 1
+        	W4.RenderText(Position(0,0)," ",Blue,Red);
+d693 1
+a693 1
+        	W4.RenderText(Position(0,0)," ",Blue,Red);
+d695 2
+a696 2
+		W4Bmp.Erase();
+		W4.Close();
+a697 1
+		
+a698 1
+
+d706 12
+a717 2
+	if(p.GetXDistance()>=1 && p.GetXDistance()<=3 && p.GetYDistance()>=17.5 && p.GetYDistance()<=18.5 )
+	{	working=true;
+d795 1
+a795 1
+                W1.RenderText(centers[c1],itoa(all[c1].nos),Blue,Red);
+d812 1
+a812 1
+           	    	 //W1.RenderText(Position(5.5,20.5),"  Attacking country "+itoa(c2)+" from country "+itoa(c1)+"   ",Black,Yellow);
+d887 4
+d894 9
+d904 13
+a916 4
+	int gamemap[43];
+	int soldiers[43];
+        //int gamemap[i]=0 for comp and 1 for player occupying territory id no. i;
+        randomdist(gamemap,soldiers);
+a920 2
+                all[i].ownership=gamemap[i];
+                all[i].nos = soldiers[i];
+d922 1
+a922 1
+                if(gamemap[i]==0)
+d926 1
+a926 1
+                W1.RenderText(centers[i],itoa(soldiers[i]),Black,Yellow);
+d932 1
+a932 1
+                W1.RenderText(centers[i],itoa(soldiers[i]),Black,White);
+d964 6
+a969 1
+	W1.Close();
+@
+
+
+1.12
+log
+@twelfth
+@
+text
+@d9 1
+d47 2
+d59 15
+a73 1
+			W3.RenderText(Position(6,1.5),msg,Blue,Red);
+d672 2
+a673 1
+		showmsg.msg="Click on your country for reinforcements.";
+d874 3
+a876 2
+        /* string s4=" hello ^ 6789";
+        cout<<s4.find("^")<<endl<<s4.find("-")<<endl;
+@
+
+
+1.11
+log
+@eleventh
+@
+text
+@d10 2
+d13 1
+d16 1
+d18 1
+a18 1
+SimpleWindow W2("Invaders...", 40.0,40.0, Position(4.0, 4.5));
+a19 1
+SimpleWindow Reinforce(" Reinforcement",13,4,Position(13,10));
+d21 2
+d24 2
+a25 1
+int f(const Position&);
+d27 1
+d31 32
+a62 1
+int reinforcement(int);
+d73 1
+a74 1
+int count=1,c1=-1,c2=-1,turn=1;
+a84 1
+
+d90 19
+a108 2
+
+void PrintLeft(string s)
+d110 2
+a111 2
+	W1.RenderText(Position(0,20.5),"                                                                                                                            ",Black,Yellow);
+	W1.RenderText(Position(5.5,20.5),s,Black,Yellow);
+d115 1
+a115 2
+
+void PrintRein(void)
+d117 2
+d120 1
+a120 1
+	W1.RenderText(Position(21,20.5),"  No of reinforcement : User : "+itoa(reinforcement(1))+"   Computer : "+itoa(reinforcement(0)),Black,Yellow);
+a122 8
+}	
+
+int f2(const Position& p)
+{
+
+
+	W2.Close();
+	ApiEnd();
+d132 1
+a132 2
+	W1.RenderText(Position(15,0.2),"                       ",Yellow,Black);
+	W1.RenderText(Position(15,0.2),strphase,Yellow,Black);
+d154 2
+a155 5
+        	W1.RenderText(Position(15,0.2),"                       ",Yellow,Black);
+        	W1.RenderText(Position(15,0.2),strphase,Yellow,Black);
+        	W1.RenderRectangle(Position(1,17.5), Position(3,18.5),Green, true);
+        	W1.RenderRectangle(Position(1.1,17.6), Position(2.9,18.4),Yellow, true);
+        	W1.RenderText(Position(2,18),"End Turn",Red,Yellow);
+d233 3
+a235 2
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+		W1.RenderText(Position (5.5,20.5),"Invasion failed. Territory retained by "+strdefender,Black,Yellow);
+d242 3
+a244 2
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+		W1.RenderText(Position (5.5,20.5),"Invasion successful. Territory captured by"+ strattacker,Black,Yellow);
+d254 2
+a255 4
+          		W2.Open();
+        		assert(W2.GetStatus() == WindowOpen);
+			W2.RenderText(Position (15.0,15.0),"   YOU   WIN  !!!",Yellow,Black);
+			W2.SetMouseClickCallback(f2);
+d259 2
+a260 4
+          		W2.Open();
+        		assert(W2.GetStatus() == WindowOpen);
+			W2.RenderText(Position (15.0,15.0),"   YOU   LOSE  !!!",Yellow,Black);
+			W2.SetMouseClickCallback(f2);
+d271 1
+a271 1
+	W1.RenderText(Position(21.5,20.5),"  No of reinforcement : User : "+itoa(reinforcement(1))+"   Computer : "+itoa(reinforcement(0)),Black,Yellow);
+d274 1
+a274 1
+W1.RenderRectangle(Position(1,17.5), Position(3,18.5),Black, true);
+d305 2
+d309 2
+a310 3
+	W1.RenderText(Position(15,0.2),"                       ",Yellow,Black);
+	W1.RenderText(Position(15,0.2),strphase,Yellow,Black);
+	W1.RenderRectangle(Position(1,17.5), Position(3,18.5),Black, true);
+d331 2
+a332 2
+			W1.RenderRectangle(Position(1,17.5), Position(3,18.5),Black, true);
+			AI();
+d341 1
+a341 1
+	//working=true;
+d344 1
+a344 1
+		W1.RenderText(Position(21.5,20.5),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+d368 1
+a368 1
+				W1.RenderText(Position(21.5,20.5),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+d374 1
+a374 1
+		W1.RenderText(Position(5.5,20.5),"   Reinforcement is going on...   ",Black,Yellow);
+d385 1
+a385 1
+		W1.RenderText(Position(21.5,20.5),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+d394 3
+a396 4
+	refresh();
+		W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+		W1.RenderText(Position(5.5,20.5),"   Reinforcement Phase is over   ",Black,Yellow);
+		W1.RenderText(Position(0,20.5)," ",Black,Yellow);
+d402 1
+d406 3
+a408 6
+	W1.RenderText(Position(15,0.2),"                       ",Yellow,Black);
+	W1.RenderText(Position(5.5,20.5),"    Computer's turn is over. Your chance...  ",Black,Yellow);
+	W1.RenderText(Position(15,0.2),strphase,Yellow,Black);
+        W1.RenderRectangle(Position(1,17.5), Position(3,18.5),Green, true);
+        W1.RenderRectangle(Position(1.1,17.6), Position(2.9,18.4),Yellow, true);
+        W1.RenderText(Position(2,18),"End Turn",Red,Yellow);
+d480 3
+a482 4
+int oldsold[43];int reinf;
+int reinfclick(const Position& current)
+{
+ 	if(reinf>0)
+d484 1
+a484 3
+		bool ans=false;
+		int reinfcountry;
+		for(int i=0;i<43 && ans==false;i++)
+d486 24
+a509 16
+			ans=isinside(current,i);
+			if(ans) { reinfcountry=i;};
+		}
+		if(ans==false)
+		{
+			PrintLeft(" Sorry, you haven't selected any coutry. ");
+			return 0;
+		}
+		else if(all[reinfcountry].ownership!=1)
+		{
+			PrintLeft(" Sorry, this is not your country. ");
+			return 0;
+		}
+		else if(all[reinfcountry].nos>=oldsold[reinfcountry]+10)
+		{
+			PrintLeft(" Sorry, you cannot increase more than 10 soldiers in a country. ");
+d513 5
+d519 18
+a536 1
+			if(reinf>5)
+d538 3
+a540 14
+		                CircleShape C(W1,centers[reinfcountry],Red,diameters[reinfcountry]);
+		                C.Draw();
+		                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Blue,Red);
+				flush();
+				all[reinfcountry].nos+=5;
+				reinf-=5;
+				usleep(600000);
+		                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Blue,Red);
+				flush();
+				usleep(300000);
+				refresh2();
+				W1.RenderText(Position(22,20.5),"                                                                                                                            ",Black,Yellow);
+				W1.RenderText(Position(21,20.5),"  No of reinforcement : User : "+itoa(reinf)+"   Computer : "+itoa(reinforcement(0)),Black,Yellow);
+				PrintLeft(" 5 soldiers added to the selected country.");
+d545 1
+a545 15
+		                CircleShape C(W1,centers[reinfcountry],Red,diameters[reinfcountry]);
+		                C.Draw();
+		                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Blue,Red);
+				flush();
+				all[reinfcountry].nos+=1;
+				reinf--;
+				usleep(600000);
+		                W1.RenderText(centers[reinfcountry],itoa(all[reinfcountry].nos),Blue,Red);
+				flush();
+				usleep(300000);
+				refresh2();
+				W1.RenderText(Position(22,20.5),"                                                                                                                            ",Black,Yellow);
+				W1.RenderText(Position(21,20.5),"  No of reinforcement : User : "+itoa(reinf)+"   Computer : "+itoa(reinforcement(0)),Black,Yellow);
+				PrintLeft(" 1 soldier added to the selected country.");
+				if(reinf==0)
+d547 6
+d554 3
+a556 1
+				        W1.SetMouseClickCallback(f);
+d558 13
+a570 3
+					PrintRein();
+					PrintLeft("   Reinforcement Phase is over   ");
+					turn=0;
+d572 23
+a594 2
+					AI();
+					working=false;
+a596 2
+
+				return 0;
+d600 41
+a640 1
+}
+d642 5
+a646 15
+int reinfclick1(const Position& p)
+{
+	Reinforce.Close();
+//	assert(Reinforce.GetStatus()!=WindowOpen);
+//	exit(0);
+	W1.SetMouseClickCallback(reinfclick);
+	for(int i=0;i<43;i++)
+		oldsold[i]=all[i].nos;
+	reinf=reinforcement(1);
+	PrintLeft(" Start selecting countries... ");
+	return 0;
+}	
+
+int f(const Position& p)
+{	if(working)
+d648 1
+d650 2
+a651 3
+	{
+		working=true;
+		W1.RenderText(Position(21.5,20.5),"  No of reinforcement : User : "+itoa(reinforcement(1))+"  Computer : "+itoa(reinforcement(0)),Black,Yellow);
+d653 1
+d655 7
+a661 1
+		Reinforce.Open();
+d669 1
+a669 1
+		Reinforce.RenderText(Position(6.5,3)," OK ",Black,Blue);
+d687 1
+a687 2
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+	W1.RenderText(Position(5.5,20.5),"  Country deselected. Select any other country ",Black,Yellow);
+d693 1
+a693 2
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+	W1.RenderText(Position(5.5,20.5),"   You haven't selected any country   ",Black,Yellow);
+d708 2
+a709 3
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+                W1.RenderText(Position(5.5,20.5),"   Sorry, this is not your country    ",Black,Yellow);
+		return 2;
+d713 3
+a715 4
+		W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+	W1.RenderText(Position(5.5,20.5)," There is no neighbouring country of opponent ",Black,Yellow);
+        return 1;
+        }		
+d718 3
+a720 4
+		W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+	W1.RenderText(Position(5.5,20.5),"    One soldier cannot attack   ",Black,Yellow);
+        return 1;
+        }		
+d724 1
+a724 2
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+                W1.RenderText(Position(5.5,20.5),"       Selected country IdNo :"+itoa(c1)+"    ",Black,Yellow);
+d734 1
+a734 2
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+                W1.RenderText(Position(5.5,20.5)," Sorry,this is not opponent's country ",Black,Yellow);
+d737 1
+a737 1
+		int xxx=0;
+a743 1
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d745 1
+a745 1
+           	    	 xxx=1;
+a749 1
+			
+d753 1
+a753 1
+		if(xxx==0)
+d755 1
+a755 2
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+                W1.RenderText(Position(5.5,20.5),"Sorry,this is not neighbouring country",Black,Yellow);
+a766 32
+int f4(const Position& p)
+{
+	double pt[4][4];
+        fillup(pt);
+        double x=p.GetXDistance();
+        double y=p.GetYDistance();
+        if(x>=pt[0][0] && x<=(pt[0][3]-.2) && y>=pt[0][1] && y<=(pt[0][2]-.2))
+        {
+        //play game
+	
+	
+	gameproceed();
+//	W4Bmp.Erase();
+	W4.Close();
+	}
+	if(x>=pt[1][0] && x<=(pt[1][3]-.2) && y>=pt[1][1] && y<=(pt[1][2]-.2))
+        {
+	//how to play
+	}
+	if(x>=pt[2][0] && x<=(pt[2][3]-.2) && y>=pt[2][1] && y<=(pt[2][2]-.2))
+        {
+	//load game
+	}
+	if(x>=pt[3][0] && x<=(pt[3][3]-.2) && y>=pt[3][1] && y<=(pt[3][2]-.2))
+        {
+	//quit
+//		W4Bmp.Erase();
+		W4.Close();
+		ApiEnd();
+	}
+	return 0;
+}
+d798 1
+a798 1
+        W4.SetMouseClickCallback(f4);
+d806 1
+a806 1
+        createrectangle(pt[0],Magenta,Cyan);
+d809 1
+a809 1
+        createrectangle(pt[2],Green,Magenta);
+d816 1
+d827 2
+a828 4
+        W1.RenderText(Position(15,0.2),"Attack Phase",Yellow,Black);
+        W1.RenderRectangle(Position(1,17.5), Position(3,18.5),Green, true);
+        W1.RenderRectangle(Position(1.1,17.6), Position(2.9,18.4),Yellow, true);
+        W1.RenderText(Position(2,18),"End Turn",Red,Yellow);
+d847 1
+a847 2
+        	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+	W1.RenderText(Position(5.5,20.5),"   You haven't selected any country   ",Black,Yellow);
+d849 1
+a849 1
+W1.RenderText(Position(21.5,20.5),"  No of reinforcement : User : "+itoa(reinforcement(1))+"  Computer : "+itoa(reinforcement(0)),Black,Yellow);
+d851 1
+a851 1
+	cout<<endl<<endl;
+d856 3
+a858 1
+        
+d869 2
+@
+
+
+1.10
+log
+@tenth
+@
+text
+@d12 1
+d14 3
+a16 1
+
+d18 7
+a24 1
+
+d48 1
+a48 1
+void clearmessage(void)
+d50 2
+a51 1
+	W1.RenderText(Position(0,20.5),"                                                                                                                 ",Black,Yellow);
+d54 1
+a54 1
+void clearreinf(void)
+d56 12
+a67 1
+	W1.RenderText(Position(23.0,20.5),"                                                                                                                  ",Black,Yellow);
+d70 7
+d79 1
+a79 1
+	        //W1.RenderText(Position(15,1.5),"Attack Phase",Red,Black);
+d81 1
+a81 23
+	W1.RenderText(Position(15,1.5),"                       ",Yellow,Black);
+	W1.RenderText(Position(15,1.5),strphase,Yellow,Black);
+        W1.RenderRectangle(Position(1,17.5), Position(3,18.5),Green, true);
+        W1.RenderRectangle(Position(1.1,17.6), Position(2.9,18.4),Yellow, true);
+        W1.RenderText(Position(2,18),"End Turn",Red,Yellow);
+	for(int i=0;i<43;i++)
+        {
+                //all[i].ownership=gamemap[i];
+                //all[i].nos = soldiers[i];
+                //cout<<i<<"-- player "<<gamemap[i]<<"-- soldiers :"<<soldiers[i]<<endl;
+                if(all[i].ownership==0)
+                {
+                CircleShape C(W1,centers[i],Yellow,diameters[i]);
+                C.Draw();
+                W1.RenderText(centers[i],itoa(all[i].nos),Black,Yellow);
+                }
+                else
+                {
+                CircleShape C(W1,centers[i],White,diameters[i]);
+                C.Draw();
+                W1.RenderText(centers[i],itoa(all[i].nos),Black,White);
+                }
+        }
+d85 2
+a86 2
+	W1.RenderText(Position(15,1.5),"                       ",Yellow,Black);
+	W1.RenderText(Position(15,1.5),strphase,Yellow,Black);
+d106 8
+d190 1
+a190 1
+	        clearmessage();
+d198 1
+a198 1
+	        clearmessage();
+d202 19
+d229 2
+a230 2
+		clearreinf();
+	W1.RenderText(Position(21.5,20.5),"  No of reinforcement : User : "+itoa(reinforcement(1))+"  Computer : "+itoa(reinforcement(0)),Black,Yellow);
+d266 2
+a267 2
+	W1.RenderText(Position(15,1.5),"                       ",Yellow,Black);
+	W1.RenderText(Position(15,1.5),strphase,Yellow,Black);
+d283 1
+a283 1
+		{	if(all[all[i].neigh[j]].ownership==1)
+d291 1
+a291 1
+			usleep(300000);
+a301 1
+		clearreinf();
+a325 1
+				clearreinf();
+a331 1
+		clearmessage();
+a342 1
+		clearreinf();
+d353 1
+a353 1
+	        clearmessage();
+d362 1
+a362 1
+        clearmessage();
+d364 1
+a364 1
+	W1.RenderText(Position(15,1.5),"                       ",Yellow,Black);
+d366 1
+a366 1
+	W1.RenderText(Position(15,1.5),strphase,Yellow,Black);
+d441 23
+a463 13
+int f(const Position& p)
+{	if(working)
+	return 0;
+	if(p.GetXDistance()>=1 && p.GetXDistance()<=3 && p.GetYDistance()>=17.5 && p.GetYDistance()<=18.5 )
+	{	working=true;
+		int r1=reinforcement(1);
+		int r2=reinforcement(0);
+		clearreinf();
+		W1.RenderText(Position(21.5,20.5),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+		strphase="Reinforcement Phase";
+		refresh2();
+		int reinf=reinforcement(turn);
+		while(reinf>5)
+d465 2
+a466 27
+			int a=rand()%43;
+			if(all[a].ownership!=turn)
+				continue;
+			int b=rand()%5+1;
+			CircleShape C2(W1,centers[a],Red,diameters[a]);
+			C2.Draw();
+		W1.RenderText(centers[a],itoa(all[a].nos),Black,Red);
+		W1.RenderText(Position(0,20.5)," ",Black,Yellow);
+			usleep(1000000);
+			all[a].nos+=b;
+			reinf-=b;
+			if (turn==1)
+			{
+				r1-=b;
+			}
+			else
+			{
+				r2-=b;
+			}
+				clearreinf();
+				W1.RenderText(Position(21.5,20.5),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+		CircleShape C1(W1,centers[a],White,diameters[a]);
+		C1.Draw();
+		W1.RenderText(centers[a],itoa(all[a].nos),Black,White);
+	        clearmessage();
+		W1.RenderText(Position(5.5,20.5),"   Reinforcement is going on...   ",Black,Yellow);
+		W1.RenderText(Position(0,20.5)," ",Black,Yellow);
+d468 3
+a470 1
+			if (turn==1)
+d472 15
+a486 1
+				r1=0;
+d490 29
+a518 1
+				r2=0;
+a519 9
+		clearreinf();
+		W1.RenderText(Position(21.5,20.5),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+		while(reinf>0)
+		{
+		int rem=rand()%43;
+		if(all[rem].ownership!=turn)
+			continue;
+		all[rem].nos+=reinf;
+		reinf=0;
+d521 34
+a554 10
+		refresh();
+	        clearmessage();
+		W1.RenderText(Position(5.5,20.5),"   Reinforcement Phase is over   ",Black,Yellow);
+		W1.RenderText(Position(0,20.5)," ",Black,Yellow);
+		turn=0;
+		usleep(300000);
+		
+		usleep(300000);
+		AI();
+		working=false;
+d572 1
+a572 1
+	        clearmessage();
+d579 1
+a579 1
+        clearmessage();
+d595 1
+a595 1
+	        clearmessage();
+d601 1
+a601 1
+	        clearmessage();
+d607 1
+a607 1
+	        clearmessage();
+d614 1
+a614 1
+	        clearmessage();
+d625 1
+a625 1
+	        clearmessage();
+d636 1
+d649 1
+a649 1
+	        clearmessage();
+d662 29
+a690 9
+
+int ApiMain() 
+{	strphase="Attack Phase";
+         ifstream fin("neighbour.txt");
+	for(int i=0;i<43;i++)
+	{
+		fin>>all[i].non;
+		for(int j=0;j<all[i].non;j++)
+		fin>>all[i].neigh[j];
+d692 46
+d739 4
+a742 1
+        W1.Open();
+d744 1
+a744 2
+
+        W1Bmp.Load("World.xpm");
+d753 1
+a753 1
+        W1.RenderText(Position(15,1.5),"Attack Phase",Yellow,Black);
+d775 1
+a775 1
+	        clearmessage();
+a777 1
+		clearreinf();
+d781 15
+@
+
+
+1.9
+log
+@ninth
+@
+text
+@d38 11
+d176 1
+a176 1
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d184 1
+a184 1
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d196 1
+a196 1
+		W1.RenderText(Position(23.0,20.5),"                                                                                                     ",Black,Yellow);
+d269 1
+d294 1
+d301 1
+d313 1
+d324 1
+a324 1
+		W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d333 1
+a333 1
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d419 1
+d445 1
+d450 1
+a450 1
+		W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d462 1
+d473 1
+a473 1
+		W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d499 1
+a499 1
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d506 1
+a506 1
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d522 1
+a522 1
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d528 1
+a528 1
+		W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d534 1
+a534 1
+		W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d541 1
+a541 1
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d552 1
+a552 1
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+a562 1
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d575 1
+a575 1
+	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d633 1
+a633 1
+        	W1.RenderText(Position(0,20.5),"                                                                                                         ",Black,Yellow);
+d636 1
+@
+
+
+1.8
+log
+@eighth
+@
+text
+@d139 1
+a139 1
+	W1.RenderText(Position(0,21)," ",Black,Yellow);
+d158 1
+a158 1
+		W1.RenderText(Position(0,21)," ",Black,Yellow);
+d165 2
+a166 2
+	W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+		W1.RenderText(Position (5.5,21),"Invasion failed. Territory retained by "+strdefender,Black,Yellow);
+d173 2
+a174 2
+	W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+		W1.RenderText(Position (5.5,21),"Invasion successful. Territory captured by"+ strattacker,Black,Yellow);
+d185 2
+a186 2
+		W1.RenderText(Position(23.0,21.0),"                                                                                                     ",Black,Yellow);
+	W1.RenderText(Position(21.5,21.0),"  No of reinforcement : User : "+itoa(reinforcement(1))+"  Computer : "+itoa(reinforcement(0)),Black,Yellow);
+d258 1
+a258 1
+		W1.RenderText(Position(21.5,21.0),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+a260 1
+		int k=reinf;
+d266 1
+a266 1
+			int b=rand()%((int)(k/5));
+d270 1
+a270 1
+		W1.RenderText(Position(0,21.0)," ",Black,Yellow);
+d282 1
+a282 1
+				W1.RenderText(Position(21.5,21.0),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+d286 1
+a286 1
+		W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);*/
+d288 2
+a289 2
+		W1.RenderText(Position(5.5,21.0),"   Reinforcement is going on...   ",Black,Yellow);
+		W1.RenderText(Position(0,21.0)," ",Black,Yellow);
+d299 13
+a311 7
+		W1.RenderText(Position(21.5,21.0),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+		
+		all[rand()%43].nos+=reinf;
+		refresh();
+		W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+		W1.RenderText(Position(5.5,21.0),"   Reinforcement Phase is over   ",Black,Yellow);
+		W1.RenderText(Position(0,21.0)," ",Black,Yellow);
+d318 1
+a318 1
+	W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+d321 1
+a321 1
+	W1.RenderText(Position(5.5,21.0),"    Computer's turn is over. Your chance...  ",Black,Yellow);
+d404 1
+a404 1
+		W1.RenderText(Position(21.5,21.0),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+a407 1
+		int k=reinf;
+d413 1
+a413 1
+			int b=rand()%((int)(k/5));
+d417 1
+a417 1
+		W1.RenderText(Position(0,21.0)," ",Black,Yellow);
+d429 1
+a429 1
+				W1.RenderText(Position(21.5,21.0),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+d433 3
+a435 3
+		W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+		W1.RenderText(Position(5.5,21.0),"   Reinforcement is going on...   ",Black,Yellow);
+		W1.RenderText(Position(0,21.0)," ",Black,Yellow);
+d445 9
+a453 2
+		W1.RenderText(Position(21.5,21.0),"  No of reinforcement : User : "+itoa(r1)+"  Computer : "+itoa(r2),Black,Yellow);
+		all[rand()%43].nos+=reinf;
+d455 3
+a457 3
+		W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+		W1.RenderText(Position(5.5,21.0),"   Reinforcement Phase is over   ",Black,Yellow);
+		W1.RenderText(Position(0,21.0)," ",Black,Yellow);
+a474 8
+		for(int i=0;i<all[c].non;i++)
+		{
+				if(all[all[c].neigh[i]].ownership!=all[c].ownership)
+				{		
+						valid=0;
+						break;
+				}
+		}
+d481 2
+a482 2
+	W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+	W1.RenderText(Position(5.5,21.0),"  Country deselected. Select any other country ",Black,Yellow);
+d488 2
+a489 2
+	W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+	W1.RenderText(Position(5.5,21.0),"   You haven't selected any country   ",Black,Yellow);
+d492 8
+d504 2
+a505 2
+	W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+                W1.RenderText(Position(5.5,21.0),"   Sorry, this is not your country    ",Black,Yellow);
+d510 2
+a511 2
+		W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+	W1.RenderText(Position(5.5,21.0)," There is no neighbouring country of opponent ",Black,Yellow);
+d516 2
+a517 2
+		W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+	W1.RenderText(Position(5.5,21.0),"    One soldier cannot attack   ",Black,Yellow);
+d523 2
+a524 2
+	W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+                W1.RenderText(Position(5.5,21.0),"       Selected country IdNo :"+itoa(c1)+"    ",Black,Yellow);
+d534 2
+a535 2
+	W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+                W1.RenderText(Position(5.5,21.0)," Sorry,this is not opponent's country ",Black,Yellow);
+d545 2
+a546 2
+	W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+           	    	 //W1.RenderText(Position(5.5,21.0),"  Attacking country "+itoa(c2)+" from country "+itoa(c1)+"   ",Black,Yellow);
+d558 2
+a559 2
+	W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+                W1.RenderText(Position(5.5,21.0),"Sorry,this is not neighbouring country",Black,Yellow);
+d616 2
+a617 2
+        	W1.RenderText(Position(0,21.0),"                                                                                                         ",Black,Yellow);
+	W1.RenderText(Position(5.5,21.0),"   You haven't selected any country   ",Black,Yellow);
+d619 1
+a619 1
+W1.RenderText(Position(21.5,21.0),"  No of reinforcement : User : "+itoa(reinforcement(1))+"  Computer : "+itoa(reinforcement(0)),Black,Yellow);
+@
+
+
+1.7
+log
+@seventh
+@
+text
+@d10 3
+a12 2
+
+SimpleWindow W1("Invaders...", 30.0,30.0, Position(-1.0, -1.0));
+d40 1
+a40 1
+	        W1.RenderText(Position(15,1.5),"Attack Phase",Red,Black);
+d42 2
+a43 1
+	W1.RenderText(Position(15,1.5),"Attack Phase",Yellow,Black);
+d68 2
+a69 1
+
+d113 29
+a141 1
+{
+d163 1
+a163 1
+		{
+d166 2
+a167 2
+		W1.RenderText(Position (5.5,21),"Invasion failed. Territory retained by Computer.",Black,Yellow);
+                CircleShape C(W1,centers[c2],Yellow,diameters[c2]);
+d169 1
+a169 1
+		}
+d171 1
+a171 1
+		{
+d174 2
+a175 2
+		W1.RenderText(Position (5.5,21),"Invasion successful. Territory captured by Player 1",Black,Yellow);
+                CircleShape C(W1,centers[c2],White,diameters[c2]);
+d177 2
+a178 2
+		}
+                CircleShape C(W1,centers[c1],White,diameters[c1]);
+d180 1
+a180 1
+                W1.RenderText(centers[c1],itoa(all[c1].nos),Black,White);
+d182 1
+a182 1
+                W1.RenderText(centers[c2],itoa(all[c2].nos),Black,White);
+d184 1
+a184 1
+                W1.RenderText(centers[c2],itoa(all[c2].nos),Black,Yellow);
+d188 121
+d310 12
+d325 1
+d393 63
+a455 1
+{	
+a456 6
+//        if(p.GetXDistance()>=1 && p.GetXDistance()<=3 && p.GetYDistance()>=17.5 && p.GetYDistance()<=18.5 )
+//	{
+//		turn=0;
+//		AI();
+//		return 1;
+//	}; 
+d536 2
+a537 18
+           	    	 Position points[3];
+           	    	points[0]=centers[c2];
+           	    	double x1=centers[c1].GetXDistance();
+           	    	double y1=centers[c1].GetYDistance();
+           	    	double x2=centers[c2].GetXDistance();
+           	    	double y2=centers[c2].GetYDistance();
+           	    	double d= sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+           	    	double xf=(diameters[c1]/2)*(y2-y1)/d;
+           	    	double yf=(diameters[c1]/2)*(x2-x1)/d;
+           	    	points[1]=centers[c1]+Position(xf,-1*yf);
+           	    	points[2]=centers[c1]+Position(-1*xf,yf);
+			W1.RenderPolygon(points, 3, Blue, false);
+			CircleShape C(W1,centers[c1],White,diameters[c1]);
+			C.Draw();
+			W1.RenderText(centers[c1],itoa(all[c1].nos),Black,White);
+			xxx=1;
+			W1.RenderText(Position(0,21)," ",Black,Yellow);
+			usleep(300000);
+d562 1
+a562 1
+{
+d577 1
+a577 1
+        W1Bmp.SetPosition(Position(0, 0));
+d605 2
+d608 1
+d613 5
+@
+
+
+1.6
+log
+@sixth
+@
+text
+@d7 1
+a7 1
+#include "bitmap.h"
+d11 3
+a13 3
+SimpleWindow W1("Invaders...", 40.0,40.0, Position(1.0, 1.0));
+
+BitMap W1Bmp(W1);
+d26 1
+a26 1
+int count=1,c1=-1,c2=-1;
+a36 5
+int keypress(int keycode) 
+{
+	
+	return 1;
+}
+d66 1
+a66 1
+	
+a67 4
+	W1.RenderText(Position(15,1.5),"Attack Phase",Yellow,Black);
+        W1.RenderRectangle(Position(1,17.5), Position(3,18.5),Green, true);
+        W1.RenderRectangle(Position(1.1,17.6), Position(2.9,18.4),Yellow, true);
+        W1.RenderText(Position(2,18),"End Turn",Red,Yellow);
+d230 6
+a235 13
+        if(p.GetXDistance()>=1 && p.GetXDistance()<=3 && p.GetYDistance()>=17.5 && p.GetYDistance()<=18.5 )
+	{
+		turn=0;
+		/*for(int i=0;i<reinforcements(1);i++)
+		{
+		W1.RenderText(Position(15,1.5),"Attack Phase",Yellow,Black);
+        W1.RenderRectangle(Position(1,17.5), Position(3,18.5),Green, true);
+        W1.RenderRectangle(Position(1.1,17.6), Position(2.9,18.4),Yellow, true);
+        W1.RenderText(Position(2,18),"End Turn",Red,Yellow);
+		}*/
+		//AI();
+		return 1;
+	}; 
+d372 1
+a372 1
+        W1Bmp.SetPosition(Position(0.25, 0.5));
+d400 1
+a400 1
+        W1.SetKeyPressCallback(keypress);
+a404 1
+
+@
+
+
+1.5
+log
+@fifth
+@
+text
+@d37 5
+d46 4
+d73 4
+d242 8
+a249 1
+		AI();
+d416 1
+@
+
+
+1.4
+log
+@fourth
+@
+text
+@d11 1
+a11 1
+SimpleWindow W1("Window One", 40.0,40.0, Position(1.0, 1.0));
+d31 6
+d38 46
+d85 18
+a102 1
+	
+d104 1
+d110 1
+a110 1
+		{
+d120 7
+a126 2
+		}
+	
+d145 1
+a145 4
+		stringstream oss,scc;
+		oss<<all[c1].nos;scc<<all[c2].nos;
+                string x1=oss.str(),x2=scc.str();
+                W1.RenderText(centers[c1],x1,Black,White);
+d147 1
+a147 1
+                W1.RenderText(centers[c2],x2,Black,White);
+d149 4
+a152 2
+                W1.RenderText(centers[c2],x2,Black,Yellow);
+
+a153 1
+::count=1;
+d224 1
+a224 1
+{
+d226 6
+a231 3
+        stringstream oss;
+          string country1,country2;
+          
+a249 3
+		stringstream obb;
+		obb<<all[c1].nos;
+                string x=obb.str();
+d252 1
+a252 1
+                W1.RenderText(centers[c1],x,Black,White);
+d258 1
+a258 1
+        else if(c==100 && ::count!=2)
+a263 1
+        oss << c;
+d272 7
+a278 1
+		if(valid==1 || all[c].nos==1)
+d281 1
+a281 1
+	W1.RenderText(Position(5.5,21.0),"   You cannot attack from this country   ",Black,Yellow);
+d286 1
+a286 1
+                country1=oss.str();::count+=1;//cout<<c1<<endl;
+d288 1
+a288 4
+                W1.RenderText(Position(5.5,21.0),"       Selected country IdNo :"+country1+"    ",Black,Yellow);
+		stringstream obb;
+		obb<<all[c1].nos;
+                string x=obb.str();
+d291 1
+a291 1
+                W1.RenderText(centers[c1],x,Blue,Red);
+d308 1
+a308 4
+             		   country2=oss.str();::count=3;//cout<<c2<<endl;
+	 	       stringstream opp;
+		        opp << c1;
+			country1=opp.str();
+d310 2
+a311 2
+           	    	 //W1.RenderText(Position(5.5,21.0),"  Attacking country "+country2+" from country "+country1+"   ",Black,Yellow);	
+           	    	Position points[3];
+d322 4
+a325 1
+           	 	
+d327 2
+a328 1
+			W1.RenderPolygon(points, 3, Blue, false);
+d330 3
+a332 1
+
+d374 4
+d379 1
+a379 2
+        {	stringstream oss;
+          	string x1,x2;
+d384 1
+a384 2
+                {oss<<soldiers[i];
+                x1=oss.str();
+d387 1
+a387 1
+                W1.RenderText(centers[i],x1,Black,Yellow);
+d390 1
+a390 2
+                {oss<<soldiers[i];
+                x2=oss.str();
+d393 1
+a393 1
+                W1.RenderText(centers[i],x2,Black,White);
+@
+
+
+1.3
+log
+@third
+@
+text
+@d4 1
+a8 1
+#include<math.h>
+d31 4
+a34 1
+
+d42 4
+a45 11
+		if(b>a)
+		{
+			if(c<=b)
+				{
+				a=a-1;cout<<"User : "<<c<<endl;
+				}
+			else
+				{
+				b=b-1;cout<<"Computer : "<<c<<endl;
+				}
+		}
+d47 3
+a49 10
+		{
+			if(c<=a)
+				{
+				b=b-1;cout<<"Computer : "<<c<<endl;
+				}
+			else
+				{
+				a=a-1;cout<<"User : "<<c<<endl;
+				}
+		}
+d51 1
+d55 2
+a56 1
+		W1.RenderText(Position (5.5,21),"Invasion failed. Territory retained by Computer.",Black,White);
+d63 1
+d85 3
+a87 1
+{        int nplay=0;
+a97 1
+        srand(((unsigned int)time(0)));
+d152 1
+a152 1
+        int c=100;
+d163 26
+a188 2
+        if(c==100 && ::count!=3)
+        {W1.RenderText(Position(5.5,21.0),"   You haven't selected any country   ",Black,Yellow);
+d196 1
+d199 8
+a206 1
+		};			
+d209 1
+d211 6
+d223 1
+d237 14
+a250 1
+           	    	 W1.RenderText(Position(5.5,21.0),"  Attacking country "+country2+" from country "+country1+"   ",Black,Yellow);
+d252 1
+d254 1
+d260 1
+d292 2
+a293 2
+        int gamemap[43];
+        int soldiers[43];
+a321 2
+
+
+@
+
+
+1.2
+log
+@second
+@
+text
+@d2 1
+d4 1
+d8 1
+a8 3
+#include <cstdlib>
+#include<ctime>
+#include <sstream>
+d11 1
+a11 1
+SimpleWindow W1("Invaders...", 40.0,40.0, Position(1.0, 1.0));
+d18 1
+a23 1
+
+d26 1
+a26 3
+ifstream fin("neighbour.txt");
+
+int count=1,c1,c2;
+d31 95
+a125 27
+void randomdist(int b[43])
+{	int nplay=0;
+	int a[43][2];
+	for(int i=0;i<43;i++)
+	{	a[i][0]=i;
+		a[i][1]=0;	
+	}
+	//int b[i]=0 for comp n 1 for player occupying territory no. i;
+	srand(((unsigned int)time(0)));
+	// a[i][1]=0 if territory a[i][0] is occupied by computer and 1 for player
+	for(int i=43;i>=1;i--)
+	{	//a[i]=0;
+		int b=rand()%i;
+		a[b][1]=1;
+		//now swap a[b][] with last array a[i-1][]
+		int temp=a[i-1][0];
+		a[i-1][0]=a[b][0];
+		a[b][0]=temp;
+		temp=a[i-1][1];
+		a[i-1][1]=a[b][1];
+		a[b][1]=temp;
+		nplay++;
+		if(nplay==22)
+		break;
+	}
+	for(int i=0;i<43;i++)
+	{	b[a[i][0]]=a[i][1];	
+d127 21
+a147 1
+	
+d151 4
+a154 4
+	if((p.GetXDistance()-centers[l].GetXDistance())*(p.GetXDistance()-centers[l].GetXDistance())+(p.GetYDistance()-centers[l].GetYDistance())*(p.GetYDistance()-centers[l].GetYDistance())<=diameters[l]*diameters[l]/4)
+		return(true);
+	else
+		return(false);
+d159 37
+a195 9
+	int c=100;
+	stringstream oss;
+  	string c1,c2;
+
+  	
+  	
+	for(int i=0;i<43;i++)
+	{
+		if(isinside(p,i)==true)
+d197 12
+a208 1
+			c=i;break;
+d210 8
+a217 19
+	}
+	if(c==100)
+	{W1.RenderText(Position(5.5,21.0),"You haven't selected any country",Black,Yellow);
+	return 1;
+	}
+	oss << c;
+	//cout<< p.GetXDistance()<<"  "<<p.GetYDistance()<<endl;
+	if(::count==1)
+	{	
+		c1=oss.str();::count+=1;//cout<<c1<<endl;
+		W1.RenderText(Position(5.5,21.0),"       Selected country IdNo :"+c1+"    ",Black,Yellow);
+		
+	}
+	else
+	{
+		c2=oss.str();::count-=1;//cout<<c2<<endl;
+		W1.RenderText(Position(5.5,21.0),"       Selected country IdNo :"+c2+"    ",Black,Yellow);
+	}
+	return 1;
+d219 1
+a219 1
+
+d222 1
+a222 1
+	W1.SetMouseClickCallback(f);
+d227 2
+a228 2
+
+	for(int i=0;i<2;i++)
+d231 2
+a232 2
+		for(int j=0;j<all[i].nos;j++)
+			fin>>all[i].neigh[j];
+a233 30
+
+	W1.Open();
+	assert(W1.GetStatus() == WindowOpen);
+
+	W1Bmp.Load("World.xpm");
+	assert(W1Bmp.GetStatus() == BitMapOkay);
+
+	W1Bmp.SetPosition(Position(0.25, 0.5));
+	W1Bmp.Draw();
+	int gamemap[43];
+	//int gamemap[i]=0 for comp and 1 for player occupying territory id no. i;
+	randomdist(gamemap);
+	for(int i=0;i<43;i++)
+	{
+		all[i].ownership=gamemap[i];
+		all[i].nos = soldiers[i];
+		if(gamemap[i]==0)
+		{CircleShape C(W1,centers[i],Yellow,diameters[i]);
+		C.Draw();
+		
+		}
+		else
+		{CircleShape C(W1,centers[i],White,diameters[i]);
+		C.Draw();
+		}
+//		W1.RenderText(centers[i],p,Black,White);
+	}
+	getclick();
+ 	return 0;
+}
+d235 5
+d241 31
+a274 154
+/*
+//#include "ezwin.h"
+//#include "position.h"
+//#include "rect.h"
+//#include "triangle.h"
+//#include "square.h"
+//#include "wobject.h"
+//#include "shape.h"
+//#include "label.h"
+//#include<time.h>
+
+   CircleShape C0  (W1, Position (1.1, 3.2),   White, 1); 
+    C0.Draw();	
+    W1.RenderText(Position (1.1, 3.2),"0",Black,White);
+    CircleShape C1  (W1, Position (3., 3.3),     White, 0.9);
+    C1.Draw();	
+    W1.RenderText(Position (3., 3.3),"1",Black,White);
+    CircleShape C2  (W1, Position (4.5, 3),      White, 0.9);
+    C2.Draw();	
+    W1.RenderText(Position (4.5, 3),"2",Black,White);
+    CircleShape C3  (W1, Position (2.8, 4.65), White, 1);
+    C3.Draw();
+    W1.RenderText(Position (2.8, 4.65),"3",Black,White);
+    CircleShape C4  (W1, Position (5.1, 4.9),   White, 1);
+    C4.Draw();
+    W1.RenderText(Position (5.1, 4.9),"4",Black,White);
+    CircleShape C5  (W1, Position (6.9, 4.9),   White, 1.2);
+    C5.Draw();
+    W1.RenderText(Position (6.9, 4.9),"5",Black,White);
+    CircleShape C6  (W1, Position (2.8, 6.3),   White, 1.2);
+    C6.Draw();
+    W1.RenderText(Position (2.8, 6.3),"6",Black,White);
+    CircleShape C7 (W1, Position (4.9, 6.8),    White, 1.2);
+    C7.Draw();
+    W1.RenderText(Position (4.9, 6.8),"7",Black,White);
+    CircleShape C8  (W1, Position (3.7, 8.3),    White, 1);
+    C8.Draw();
+    W1.RenderText(Position (3.7, 8.3),"8",Black,White);
+    CircleShape C9  (W1, Position (10.1, 1.7),  White, 1.5);
+    C9.Draw();
+    W1.RenderText( Position (10.1, 1.7),"9",Black,White);
+    CircleShape C10 (W1, Position (7.1, 11.1), White, 1.0);
+    C10.Draw();	
+    W1.RenderText(Position (7.1, 11.1),"10",Black,White);
+    CircleShape C11 (W1, Position (9, 13.4),    White, 1.4);
+    C11.Draw();	
+    W1.RenderText(Position (9, 13.4),"11",Black,White);
+    CircleShape C12 (W1, Position (7.5, 14.3), White, 0.9);
+    C12.Draw();	
+    W1.RenderText(Position (7.5, 14.3),"12",Black,White);
+    CircleShape C13 (W1, Position (7.5, 16.6), White, 0.9);
+    C13.Draw();	
+    W1.RenderText(Position (7.5, 16.6),"13",Black,White);
+    CircleShape C14 (W1, Position (12.9, 10.2),White, 1.4);
+    C14.Draw();	
+    W1.RenderText( Position (12.9, 10.2),"14",Black,White);
+    CircleShape C15 (W1, Position (15.2, 9.3),   White, 1.1);
+    C15.Draw();	
+    W1.RenderText(Position (15.2, 9.3),"15",Black,White);
+    CircleShape C16 (W1, Position (16.3, 11.1), White, 1.2);
+    C16.Draw();	
+    W1.RenderText(Position (16.3, 11.1),"16",Black,White);
+    CircleShape C17 (W1, Position (15.3, 13.1), White, 1.0);
+    C17.Draw();	
+    W1.RenderText(Position (15.3, 13.1),"17",Black,White);
+    CircleShape C18 (W1, Position (15.5, 15.8), White, 1.2);
+    C18.Draw();	
+    W1.RenderText(Position (15.5, 15.8),"18",Black,White);
+    CircleShape C19 (W1, Position (17.9, 15.4), White, 0.7);
+    C19.Draw();	
+    W1.RenderText(Position (17.9, 15.4),"19",Black,White);
+    CircleShape C20 (W1, Position (12.9, 2.7),   White, 0.8);
+    C20.Draw();
+    W1.RenderText(Position (12.9, 2.7),"20",Black,White);
+    CircleShape C21 (W1, Position (15.1, 3.7),   White, 1);
+    C21.Draw();
+    W1.RenderText(Position (15.1, 3.7),"21",Black,White);
+    CircleShape C22 (W1, Position (16.9, 4.9),   White, 1.4);
+    C22.Draw();
+    W1.RenderText(Position (16.9, 4.9),"22",Black,White);
+    CircleShape C23 (W1, Position (12.8, 5.4),   White, 0.8);
+    C23.Draw();
+    W1.RenderText(Position (12.8, 5.4),"23",Black,White);
+    CircleShape C24 (W1, Position (14.2, 5.7),   White, 0.6);
+    C24.Draw();
+    W1.RenderText(Position (14.2, 5.7),"24",Black,White);
+    CircleShape C25 (W1, Position (12.7, 7.3),   White, 0.7);
+    C25.Draw();
+    W1.RenderText(Position (12.7, 7.3),"25",Black,White);
+    CircleShape C26 (W1, Position (15.4, 6.8),   White, 0.8);
+    C26.Draw();
+    W1.RenderText(Position (15.4, 6.8),"26",Black,White);
+    CircleShape C27 (W1, Position (19.8, 4.6),   White, 1.1);
+    C27.Draw();
+    W1.RenderText(Position (19.8, 4.6),"27",Black,White);
+    CircleShape C28 (W1, Position (23.3, 4.8),   White, 1.4);
+    C28.Draw();
+    W1.RenderText(Position (23.3, 4.8),"28",Black,White);
+    CircleShape C29 (W1, Position (26.1, 3.7),   White, 0.8);
+    C29.Draw();
+    W1.RenderText(Position (26.1, 3.7),"29",Black,White);
+    CircleShape C30 (W1, Position (25.5, 5.5),   White, 1.0);
+    C30.Draw();
+    W1.RenderText(Position (25.5, 5.5),"30",Black,White);
+    CircleShape C31 (W1, Position (27.9, 4.1),   White, 1.0);
+    C31.Draw();	
+    W1.RenderText(Position (27.9, 4.1),"31",Black,White);
+    CircleShape C32 (W1, Position (25.3, 7),      White, 0.9);
+    C32.Draw();	
+    W1.RenderText(Position (25.3, 7),"32",Black,White);
+    CircleShape C33 (W1, Position (27, 8.2),      White, 0.7);
+    C33.Draw();	
+    W1.RenderText(Position (27, 8.2),"33",Black,White);
+    CircleShape C34 (W1, Position (20.2, 7.3),   White, 1.2);
+    C34.Draw();	
+    W1.RenderText(Position (20.2, 7.3),"34",Black,White);
+    CircleShape C35 (W1, Position (23.5, 7.9),   White, 1.3);
+    C35.Draw();	
+    W1.RenderText(Position (23.5, 7.9),"35",Black,White);
+    CircleShape C36 (W1, Position (17.95, 9.9), White, 1.2);
+    C36.Draw();	
+    W1.RenderText(Position (17.95, 9.9),"36",Black,White);
+    CircleShape C37 (W1, Position (21.15, 9.8), White, 1.2);
+    C37.Draw();	
+    W1.RenderText(Position (21.15, 9.8),"37",Black,White);
+    CircleShape C38 (W1, Position (23.5, 10),    White, 1.0);
+    C38.Draw();	
+    W1.RenderText(Position (23.5, 10),"38",Black,White);
+    CircleShape C39 (W1, Position (24.8, 12.6), White, 0.7);
+    C39.Draw();	
+    W1.RenderText(Position (24.8, 12.6),"39",Black,White);
+    CircleShape C40 (W1, Position (27.4, 13.5), White, 0.75);
+    C40.Draw();	
+    W1.RenderText(Position (27.4, 13.5),"40",Black,White);
+    CircleShape C41 (W1, Position (25.8, 16.2), White, 1.2);
+    C41.Draw();	
+    W1.RenderText(Position (25.8, 16.2),"41",Black,White);
+    CircleShape C42 (W1, Position (27.65, 16.7),White, 1.2);
+    C42.Draw();	
+    W1.RenderText(Position (27.65, 16.7),"42",Black,White);
+//Position a=(27.5,13.6);
+//bool y=C40.IsInside(a);
+//cout<<y<<endl;
+
+//float a=C40.GetXDistance();
+//float b=C40.GetYDistance();
+//cout<<a<<" "<<b<<endl;
+*/
+/*	// Register the call backs for each window
+	W1.SetMouseClickCallback(W1MouseClick);
+*/
+//	sleep(5);
+//	W1.Close();
+
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d1 3
+a3 1
+#include <assert.h>
+a4 3
+#include "ezwin.h"
+#include "position.h"
+#include "rect.h"
+d6 6
+a11 8
+#include "triangle.h"
+#include "square.h"
+#include "wobject.h"
+#include "shape.h"
+#include "label.h"
+#include<time.h>
+// Define  window
+SimpleWindow W1("Window One", 40.0,40.0, Position(1.0, 1.0));
+a12 1
+// Define a bitmap object
+d14 91
+d106 14
+a119 9
+// W1MouseClick(): call back function for Window one
+int W1MouseClick(const Position &p) {
+	// Erase the bitmap
+	W1Bmp.Erase();
+	// Set its new position and display it
+	W1Bmp.SetPosition(p);
+	W1Bmp.Draw();
+	return 1;
+}
+a120 3
+int ApiMain() {
+
+	// Open the windows
+a123 1
+	// Load the images
+a126 1
+	// Display the bit maps at a starting position
+d129 38
+a166 2
+
+    CircleShape C0  (W1, Position (1.1, 3.2),   White, 1);
+d168 1
+d171 1
+d174 1
+d177 1
+d180 1
+d183 1
+d186 1
+d189 1
+d192 1
+d195 1
+d198 1
+d201 1
+d204 1
+d207 1
+d210 1
+d213 1
+d216 1
+d219 1
+d222 1
+d225 1
+d228 1
+d231 1
+d234 1
+d237 1
+d240 1
+d243 1
+d246 1
+d249 1
+d252 1
+d255 1
+d258 1
+d261 1
+d264 1
+d267 1
+d270 1
+d273 1
+d276 1
+d279 1
+d282 1
+d285 1
+d288 1
+d291 1
+d294 4
+d299 4
+a307 2
+	return 0;
+}
+@
